@@ -3,16 +3,11 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
   Crafty.c('Onibi', {
       init: function () {
         this.requires('Mouse')
-            .areaMap([0, 0], [0, CONF.onibi.size], [CONF.onibi.size, CONF.onibi.size], [CONF.onibi.size, 0]);
-        this.bind('Click', function () {
-          var selected = Crafty('Selected');
-          if (selected.length) {
-            for (var i = 0; i < selected.length; i++) {
-              Crafty(selected[i]).removeComponent('Selected');
-            }
-          }
-          this.addComponent('Selected');
+            .areaMap([0, 0], [0, CONF.onibi.size], [CONF.onibi.size, CONF.onibi.size], [CONF.onibi.size, 0])
+            .bind('Click', function () {
+            console.log('CLICKED');
         });
+        
 
         this.requires('Collision').collision();
 
