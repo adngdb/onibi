@@ -61,14 +61,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy'],
   // -----------------------------------------------------------------
   // Menu
   // -----------------------------------------------------------------
-
-  var pauseContainer = $('#pauseContainer');
-  $('button', pauseContainer).on('click', function () {
-    Crafty.pause();
-    pauseContainer.hide();
-  });
-
-  // MENU
   Crafty.scene('menu', function () {
     Crafty.background('#ccc');
     Crafty.e('2D, DOM, Text')
