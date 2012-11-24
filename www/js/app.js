@@ -19,7 +19,7 @@ require.config({
 
 var global = this;
 
-require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, crafty, CONF, player) {
+require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/ennemi'], function($, crafty, CONF, player, ennemi) {
 
   // -----------------------------------------------------------------
   // Configuration
@@ -52,7 +52,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
   //the loading screen that will display while our assets load
   Crafty.scene('loading', function () {
     //load takes an array of assets and a callback when complete
-    Crafty.load(['img/forest.png', 'img/onibi.png'], function () {
+    Crafty.load(['img/forest.png', 'img/onibi.png', 'img/ennemi.png'], function () {
       // ONLY FOR LOCAL TEST
       setTimeout(function() { //wait 2 seconds to see loading in local test
         Crafty.scene('menu'); // Play the main scene
@@ -104,6 +104,10 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
     Crafty.sprite(CONF.onibi.size, 'img/onibi.png', {
       onibi: [0, 0]
     });
+    
+    Crafty.sprite(CONF.ennemi.size, 'img/ennemi.png', {
+      ennemi: [0, 0]
+    });
 
     Crafty.e("2D, Canvas, Color, Mouse")
       .color("red")
@@ -112,9 +116,12 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
         Crafty.pause();
       });
 
-    // Display the player
+    // Display elements
     var player = Crafty.e('2D, Canvas, Tween, Onibi, onibi')
       .attr({ w:CONF.onibi.size, h:CONF.onibi.size, x: CONF.width / 2, y: CONF.height / 10 * 9 });
+
+    var ennemi = Crafty.e('2D, Canvas, Tween, Ennemi, ennemi')
+      .attr({ w:CONF.ennemi.size, h:CONF.ennemi.size, x: CONF.width / 2 +100, y: CONF.height / 2 });
 
     // Bind the click to move the player's avatar
     Crafty.addEvent(this, Crafty.stage.elem, 'click', function(e) {
@@ -122,6 +129,10 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
           newy = e.clientY;
       player.move(newx, newy);
     })
+    Crafty.bind('EnterFrame', function () {
+      ennemi.seekPlayer(player.x, player.y);  
+    });
+    
 
   });
 
