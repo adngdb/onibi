@@ -21,14 +21,15 @@ define(
       height: 1900
     },
     enemy: {
-      vision:150,
-      size:32,
-      speed:3,
-      degat: 2
+      vision: 200,
+      size:   128,
+      image:  'img/spider-color2.png',
+      speed:  3,
+      degat:  2
     },
     fountain: {
       essence: 10,
-      size:32
+      size:    32
     }
   }
 );
