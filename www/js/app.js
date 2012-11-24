@@ -109,45 +109,43 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
       }
     });
 
-    // Borders to move the camera around
-    Crafty.e('Borders')
-          .borders(CONF.level1.width, CONF.level1.height);
-
     // Create sprites to use
     Crafty.sprite(CONF.enemy.size, 'img/enemy.png', {
       enemy: [0, 0]
     });
-    Crafty.sprite(1, 'img/forest.png', {
+    Crafty.sprite(CONF.level1.width, 'img/forest.png', {
       map: [0, 0]
     });
 
     // Display background
-    Crafty.e('2D, DOM, map')
-          .attr({ w: CONF.level1.width, h: CONF.level1.height, x: 0, y: 0, z: -1 });
+    Crafty.e('2D, Canvas, map, Mouse')
+          .attr({x: 0, y: 0})
+          .bind('Click', function(e) {
+            var newx = e.clientX - Crafty.viewport.x;
+            var newy = e.clientY - Crafty.viewport.y;
+            player.move(newx, newy);
+            // console.log("enemy(x,y)=("+enemy.x+","+enemy.y+")");
+          });
 
-    Crafty.e("2D, DOM, Color, Mouse")
-      .color("red")
-      .attr({ w:50, h:50 })
-      .bind("Click", function() {
-        Crafty.pause();
-      });
+    // Borders to move the camera around
+    Crafty.e('Borders')
+          .borders(CONF.level1.width, CONF.level1.height);
+
+    Crafty.e("2D, Canvas, Color, Mouse")
+          .color("red")
+          .attr({ w:50, h:50 })
+          .bind("Click", function() {
+            Crafty.pause();
+          });
 
     // Display the player
     var player = Crafty.e('2D, Canvas, Tween, Onibi, Delay')
       .attr({ w:CONF.onibi.size, h:CONF.onibi.size, x: CONF.width / 2, y: CONF.height / 10 * 9 });
     player.loseEssence();
 
-
     var enemy = Crafty.e('2D, Canvas, Tween, Enemy, enemy')
       .attr({ w:CONF.enemy.size, h:CONF.enemy.size, x: CONF.width / 2 +100, y: CONF.height / 2 });
 
-    // Bind the click to move the player's avatar
-    Crafty.addEvent(this, Crafty.stage.elem, 'click', function(e) {
-      var newx = e.clientX - Crafty.viewport.x;
-      var newy = e.clientY - Crafty.viewport.y;
-      player.move(newx, newy);
-      console.log("enemy(x,y)=("+enemy.x+","+enemy.y+")");
-    })
     Crafty.bind('EnterFrame', function () {
       enemy.seekPlayer(player.x, player.y);
     });

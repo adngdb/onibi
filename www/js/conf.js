@@ -17,8 +17,8 @@ define(
       zoneHeight: 50
     },
     level1: {
-      width: 2960,
-      height: 1974
+      width: 1900,
+      height: 1900
     },
     enemy: {
       vision:150,

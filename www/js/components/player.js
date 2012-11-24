@@ -14,7 +14,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
 
       // On collision with an enemy
       this.onHit('enemy', function (entities) {
-        console.log('enemy hit');
+        // console.log('enemy hit');
       });
 
       // Annimation tools
@@ -43,9 +43,10 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
         return baseLength * this.fireflyLines[ i ] / 100;
       }
       this.addColorStops = function( grad ) {
-        grad.addColorStop( 0  , '#FFF' );
-        grad.addColorStop( 0.7,  'rgb( 255, 255, 50 )' );
-        grad.addColorStop( 1  , 'rgba( 255, 255, 50, 0 )' );
+        grad.addColorStop( 0   , '#FFF' );
+        grad.addColorStop( 0.7 , 'rgba( 255, 255, 50, 1   )' );
+        grad.addColorStop( 1   , 'rgba( 255, 255, 50, 0   )' );
+        //grad.addColorStop( 1   , 'rgba( 0  , 0  , 0 , 0.2 )' );
         return grad;
       }
 
@@ -60,9 +61,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
           dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)),
           speed = Math.round(dist / CONF.onibi.speed);
 
-      console.log("player(x,y)=("+this.x+","+this.y+")");
-      this.tween({ x: toX, y: toY }, speed);
-
+      // console.log("player(x,y)=("+this.x+","+this.y+")");
       this.tween({ x: toX, y: toY }, speed);
 
       return this;
@@ -70,7 +69,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     loseEssence: function() {
       this.delay(function() {
         this.essence--;
-        console.log(this.essence);
+        // console.log(this.essence);
         if (this.essence === 0) {
           Crafty.trigger('Loosing');
         }
