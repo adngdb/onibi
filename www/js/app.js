@@ -89,6 +89,10 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
       });
     });
 
+    Crafty.bind('Loosing', function () {
+      Crafty.scene('menu');
+    });
+
     Crafty.bind('KeyDown', function (keyboardEvent) {
       if (keyboardEvent.key === Crafty.keys.ESC) {
         Crafty.pause();
