@@ -70,6 +70,13 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
       .css({ 'text-align': 'center', 'color': '#fff' });
   });
 
+
+  var pauseContainer = $('#pauseContainer');
+  $('button', pauseContainer).on('click', function () {
+    Crafty.pause();
+    pauseContainer.hide();
+  });
+
   // MENU
   Crafty.scene('menu', function () {
     Crafty.background('#ccc');
@@ -87,12 +94,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
   Crafty.scene('game', function () {
     // Pausing the game
     Crafty.bind('Pause', function () {
-      var pauseContainer = $('#pauseContainer');
       pauseContainer.show();
-      $('button', pauseContainer).on('click', function () {
-        Crafty.pause();
-        pauseContainer.hide();
-      });
     });
 
     Crafty.bind('Loosing', function () {
