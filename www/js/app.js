@@ -81,28 +81,43 @@ require(['jquery', 'crafty'], function($) {
   Crafty.scene('menu', function () {
     Crafty.background('#ccc');
     Crafty.e('2D, DOM, Text')
-      .attr({ w: 100, h: 20, x: 350, y: 220 })
+      .attr({ w: 100, h: 20, x: 460, y: 220 })
       .text('Onibi')
       .css({ 'text-align': 'center', 'font-size': '42px' });
     Crafty.e('2D, DOM, Text')
-      .attr({ w: 100, h: 20, x: 350, y: 280 })
+      .attr({ w: 100, h: 20, x: 460, y: 280 })
       .text('<a href="#" onclick="Crafty.scene(\'game\'); return false;">Play</a>')
       .css({ 'text-align': 'center' });
   });
   Crafty.scene('game', function () {
-    Crafty.background('#ccc');
-    Crafty.e('2D, DOM, Text')
-      .attr({ w: 100, h: 20, x: 350, y: 280 })
-      .text('Game')
-      .css({ 'text-align': 'center' });
+    Crafty.bind('Pause', function () {
+      var pauseContainer = $('#pauseContainer');
+      pauseContainer.show();
+      $('button', pauseContainer).on('click', function () {
+        Crafty.pause();
+        pauseContainer.hide();
+      });
+    });
+
+    Crafty.bind('KeyDown', function (keyboardEvent) {
+      if (keyboardEvent.key === Crafty.keys.ESC) {
+        Crafty.pause();
+      }
+    });
+
+    Crafty.background('url(img/forest.png)');
 
     // Create sprites to use
     Crafty.sprite(1, "img/forest.png", {
       map: [0, 0]
     });
-    // Create the map in the background
-    Crafty.e("2D, DOM, map")
-      .attr({ w: CONF.width, h: CONF.height, x: 0, y: 0 });
+
+    Crafty.e("2D, Canvas, Color, Mouse")
+      .color("red")
+      .attr({ w:50, h:50 })
+      .bind("Click", function() {
+        Crafty.pause();
+      });
   });
 
   //start 
