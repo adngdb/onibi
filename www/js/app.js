@@ -26,7 +26,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
   // -----------------------------------------------------------------
 
   // Instanciate Crafty and create a canvas context
-  Crafty.init(CONF.width, CONF.height);
+  Crafty.init();
   Crafty.canvas.init();
 
   // -----------------------------------------------------------------
@@ -63,7 +63,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
     //load takes an array of assets and a callback when complete
     Crafty.load(['img/forest.png', 'img/onibi.png'], function () {
       // ONLY FOR LOCAL TEST
-      setTimeout(function() { //wait 2 seconds to see loading in local test 
+      setTimeout(function() { //wait 2 seconds to see loading in local test
         Crafty.scene('menu'); // Play the main scene
       }, 2000);
       // USE THIS IN PROD
@@ -125,7 +125,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
     cloneOnibiPlayer().attr({ x: CONF.width / 2, y: CONF.height / 10 * 9 });
   });
 
-  //start 
+  //start
   Crafty.scene('loading');
 });
 
