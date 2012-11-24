@@ -6,7 +6,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       this.requires('Collision').collision();
       // On collision with an enemy
       this.onHit('onibi', function (entities) {
-        // console.log('onibi hit');
+        //console.log('onibi hit');
       });
 
     },
@@ -18,7 +18,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
           dy = this.y - toY,
           dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)),
           speed = Math.round(dist / CONF.enemy.speed);
-          
+
       this.tween({ x: toX, y: toY }, speed);
 
       return this;
