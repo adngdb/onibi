@@ -26,10 +26,17 @@ require(['jquery', 'crafty'], function($) {
   // -----------------------------------------------------------------
 
   // Because it's good to use configuration
-  var WIDTH = 800, HEIGHT = 600;
+  var CONF = {
+    width: 960,
+    height: 640,
+    'onibi': {
+      'size': 32,
+      'speed': 5
+    }
+  }
 
   // Instanciate Crafty and create a canvas context
-  Crafty.init(WIDTH, HEIGHT);
+  Crafty.init(CONF.width, CONF.height);
   Crafty.canvas.init();
 
   // -----------------------------------------------------------------
