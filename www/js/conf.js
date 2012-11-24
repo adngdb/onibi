@@ -32,6 +32,21 @@ define(
     fountain: {
       essence: 10,
       size:    119
+    },
+    spell: {
+      purify : {
+        size:32,
+        type : '1',
+        speed : '8'
+      },
+      slowDown : {
+        size:32,
+        type : '2',
+        speed : '5'
+      },
+      teleportation : {
+        type : '3'
+      }
     }
   }
 );

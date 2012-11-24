@@ -3,7 +3,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
   Crafty.c('Onibi', {
     essence: 0,
     maxEssence: 0,
-
+    spells:new Array(),
     init: function () {
       this.requires('Mouse')
           .areaMap([0, 0], [0, CONF.onibi.size], [CONF.onibi.size, CONF.onibi.size], [CONF.onibi.size, 0]);
@@ -77,6 +77,12 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       this.tween({ x: toX, y: toY }, speed);
 
       return this;
+    },
+    fire: function(toX, toY, target) {
+      
+      console.log("player FIRE(toX,toY)=("+toX+","+toY+")");
+      this.spell[0].fire(toX, toY, target);
+
     },
     loseEssence: function() {
       this.delay(function() {
