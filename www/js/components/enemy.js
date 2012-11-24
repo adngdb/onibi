@@ -2,13 +2,20 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
 
   Crafty.c('Enemy', {
 
+    degat: 0,
+
     init: function () {
       this.requires('Collision').collision();
 
-      // On collision with an enemy
-      this.onHit('onibi', function (entities) {
-        //console.log('onibi hit');
+      // On collision with an onibi
+      this.onHit('Onibi', function (target) {
+        var degat = this.degat;
+        target[0].obj.each(function(){
+          this.looseEssence(degat);
+        });
       });
+
+      this.degat = CONF.enemy.degat;
     },
 
     move: function (toX, toY) {
@@ -40,6 +47,9 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       }
 
       return this;
+    },
+    getDegat: function() {
+      return this.degat;
     }
 
   });

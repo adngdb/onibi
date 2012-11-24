@@ -20,8 +20,8 @@ require.config({
 
 var global = this;
 
-require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy'],
-  function($,       crafty,       CONF,   player,     borders,     enemy) {
+require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/fountain'],
+  function($,       crafty,       CONF,   player,     borders,     enemy,     fountain) {
 
   // -----------------------------------------------------------------
   // Init
