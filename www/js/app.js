@@ -130,13 +130,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy'],
     Crafty.e('Borders')
           .borders(CONF.level1.width, CONF.level1.height);
 
-    Crafty.e('2D, Canvas, Color, Mouse')
-          .color('red')
-          .attr({ w:50, h:50 })
-          .bind('Click', function() {
-            Crafty.pause();
-          });
-
     // Display the player
     var player = Crafty.e('2D, Canvas, Tween, Onibi, Delay')
                        .attr({
