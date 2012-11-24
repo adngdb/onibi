@@ -86,7 +86,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
       .css({ 'text-align': 'center', 'font-size': '42px' });
     Crafty.e('2D, DOM, Text')
       .attr({ w: 100, h: 20, x: 460, y: 280 })
-      .text('<a href="#" onclick="Crafty.scene(\'game\'); return false;">Play</a>')
+      .text('<a href="#" onmousedown="Crafty.scene(\'game\'); return false;">Play</a>')
       .css({ 'text-align': 'center' });
   });
 
