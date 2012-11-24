@@ -89,6 +89,10 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/ennemi
       });
     });
 
+    Crafty.bind('Loosing', function () {
+      Crafty.scene('menu');
+    });
+
     Crafty.bind('KeyDown', function (keyboardEvent) {
       if (keyboardEvent.key === Crafty.keys.ESC) {
         Crafty.pause();
@@ -116,9 +120,10 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/ennemi
         Crafty.pause();
       });
 
-    // Display elements
-    var player = Crafty.e('2D, Canvas, Tween, Onibi, onibi')
+    // Display the player
+    var player = Crafty.e('2D, Canvas, Tween, Onibi, onibi, Delay')
       .attr({ w:CONF.onibi.size, h:CONF.onibi.size, x: CONF.width / 2, y: CONF.height / 10 * 9 });
+    player.loseEssence();
 
     var ennemi = Crafty.e('2D, Canvas, Tween, Ennemi, ennemi')
       .attr({ w:CONF.ennemi.size, h:CONF.ennemi.size, x: CONF.width / 2 +100, y: CONF.height / 2 });
