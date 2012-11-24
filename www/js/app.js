@@ -31,10 +31,26 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
   Crafty.init();
   Crafty.canvas.init();
 
+
+  // -----------------------------------------------------------------
+  // Functions
+  // -----------------------------------------------------------------
+  var idEnemy = 0;
+  var generateEnemy = function( x, y ) {
+      idEnemy++;
+
+      var map = { }
+      map[ 'enemy' + idEnemy ] = [0, 0];
+      Crafty.sprite( CONF.enemy.size, CONF.enemy.image, map );
+
+      return Crafty.e( '2D, Canvas, Tween, Enemy, enemy' + idEnemy )
+        .attr({ w:CONF.enemy.size, h:CONF.enemy.size, x: x, y: y });
+  }
+
+
   // -----------------------------------------------------------------
   // Loader
   // -----------------------------------------------------------------
-
   //the loading screen that will display while our assets load
   Crafty.scene('loading', function () {
     Crafty.load([
@@ -105,10 +121,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
       Crafty.scene('menu');
     });
 
-    // Create sprites to use    
-    Crafty.sprite(CONF.enemy.size, CONF.enemy.image, {
-      enemy: [0, 0]
-    });
+    // Create sprites to use   
     Crafty.sprite(CONF.level1.width, 'img/forest.png', {
       map: [0, 0]
     });
@@ -123,7 +136,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
             var newx = e.clientX - Crafty.viewport.x;
             var newy = e.clientY - Crafty.viewport.y;
             player.move(newx, newy);
-            console.log("enemy(x,y)=("+enemy.x+","+enemy.y+")");
           });
 
     // Borders to move the camera around
@@ -140,14 +152,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
                        });
     player.loseEssence();
 
-    var enemy = Crafty.e('2D, Canvas, Tween, Enemy, enemy')
-                      .attr({
-                        w: CONF.enemy.size,
-                        h: CONF.enemy.size,
-                        x: CONF.width / 2 +100,
-                        y: CONF.height / 2
-                      });
-
     var fountain = Crafty.e('2D, Canvas, Tween, Fountain, fountain')
                          .attr({
                            w:CONF.fountain.size,
@@ -156,8 +160,14 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
                            y: CONF.height / 2
                           });
 
+    enemies = [ ];
+    enemies.push( generateEnemy( CONF.width / 2 + 100, CONF.height / 2 ) );
+    enemies.push( generateEnemy( CONF.width / 2 - 100, CONF.height / 2 ) );
+
     Crafty.bind('EnterFrame', function () {
-      enemy.seekPlayer(player.x, player.y);
+      for ( var i=0; i<enemies.length; i++ ) {
+        enemies[ i ].seekPlayer(player.x, player.y);
+      }
     });
   });
 
