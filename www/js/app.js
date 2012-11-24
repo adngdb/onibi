@@ -72,7 +72,7 @@ require(['jquery', 'crafty'], function($) {
   });
 
   Crafty.scene('menu');
-  });
+});
 
 // END REQUIRE.JS CODE
 // Remove all of this if not using require.js
