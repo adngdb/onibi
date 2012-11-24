@@ -1,1 +1,10 @@
 @import url('html5-boilerplate.css');
+
+h1, p {
+    text-align: center;
+}
+
+#cr-stage {
+    margin: auto;
+    margin-top: 150px;
+}
