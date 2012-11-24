@@ -146,6 +146,14 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
     var enemy = Crafty.e('2D, Canvas, Tween, Enemy, enemy')
       .attr({ w:CONF.enemy.size, h:CONF.enemy.size, x: CONF.width / 2 +100, y: CONF.height / 2 });
 
+    // Bind the click to move the player's avatar
+    Crafty.addEvent(this, Crafty.stage.elem, 'click', function(e) {
+      var newx = e.clientX;
+      var newy = e.clientY;
+      player.move(newx, newy);
+      console.log("enemy(x,y)=("+enemy.x+","+enemy.y+")");
+    })
+
     Crafty.bind('EnterFrame', function () {
       enemy.seekPlayer(player.x, player.y);
     });
