@@ -5,8 +5,7 @@ h1, p {
 }
 
 #cr-stage {
-    margin: auto;
-    margin-top: 150px;
+    margin: 0;
 }
 
 #pauseContainer {
