@@ -8,3 +8,19 @@ h1, p {
     margin: auto;
     margin-top: 150px;
 }
+
+#pauseContainer {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 150px;
+    left: 480px;
+    background-color: #a0a0a0;
+    width: 960px;
+    height: 640px;
+}
+
+#pauseContainer button {
+    display: block;
+    margin: 310px auto 0px auto;
+}
