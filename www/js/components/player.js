@@ -22,7 +22,7 @@ Crafty.c('Onibi', {
       var dx = this.x - toX,
           dy = this.y - toY,
           dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)),
-          speed = Math.round(dist / CONF.firefly.speed);
+          speed = Math.round(dist / CONF.onibi.speed);
 
       this.tween({ x: toX, y: toY }, speed);
 
