@@ -118,8 +118,8 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
 
     // Bind the click to move the player's avatar
     Crafty.addEvent(this, Crafty.stage.elem, 'click', function(e) {
-      var newx = e.clientX - Crafty.viewport.x,
-          newy = e.clientY - Crafty.viewport.y;
+      var newx = e.clientX,
+          newy = e.clientY;
       player.move(newx, newy);
     })
 
