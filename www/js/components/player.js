@@ -49,7 +49,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
         return grad;
       }
 
-      this.bind( 'EnterFrame', function(){ this.render() }.bind(this) );
+      this.bind( 'EnterFrame', this.render );
     },
     move: function(toX, toY) {
       toX -= this.w / 2;
