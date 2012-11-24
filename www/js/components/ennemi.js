@@ -13,6 +13,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
           dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)),
           speed = Math.round(dist / CONF.ennemi.speed);
           
+      console.log("ennemi(x,y)=("+this.x+","+this.y+")");
       this.tween({ x: toX, y: toY }, speed);
 
       return this;
@@ -24,7 +25,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       var dx = this.x - playerX,
           dy = this.y - playerY,
           dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)),
-          speed = Math.round(dist / CONF.onibi.speed);
+          speed = Math.round(dist / CONF.ennemi.speed);
 
       if (dist<=CONF.ennemi.vision) {
         this.move (playerX, playerY);

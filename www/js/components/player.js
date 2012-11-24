@@ -14,7 +14,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
           dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)),
           speed = Math.round(dist / CONF.onibi.speed);
 
-      console.log("(x,y)=("+this.x+","+this.y+")");
+      console.log("player(x,y)=("+this.x+","+this.y+")");
       this.tween({ x: toX, y: toY }, speed);
 
       return this;
