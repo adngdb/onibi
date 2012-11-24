@@ -113,8 +113,9 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
       });
 
     // Display the player
-    var player = Crafty.e('2D, Canvas, Tween, Onibi, onibi')
+    var player = Crafty.e('2D, Canvas, Tween, Onibi, onibi, Delay')
       .attr({ w:CONF.onibi.size, h:CONF.onibi.size, x: CONF.width / 2, y: CONF.height / 10 * 9 });
+    player.loseEssence();
 
     // Bind the click to move the player's avatar
     Crafty.addEvent(this, Crafty.stage.elem, 'click', function(e) {

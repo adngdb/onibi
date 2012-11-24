@@ -17,8 +17,17 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
         console.log("(x,y)=("+this.x+","+this.y+")");
         this.tween({ x: toX, y: toY }, speed);
 
-        return this;
-      }
+      this.tween({ x: toX, y: toY }, speed);
+
+      return this;
+    },
+
+    loseEssence: function() {
+      this.delay(function() {
+        this.essence--;
+        this.loseEssence();
+      }, CONF.onibi.loseEssenceTimeout);
+    }
   });
 
 });
