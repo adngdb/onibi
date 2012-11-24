@@ -9,7 +9,7 @@ define(
       loseEssenceTimeout: 2500,
       nbLines: 60,
       beamEvolutionMin: 0.9,
-      beamEvolutionMax: 1.2,
+      beamEvolutionMax: 1.2
     },
     scrolling: {
       speed: 10,
@@ -24,6 +24,10 @@ define(
       vision:150,
       size:32,
       speed:3
+    },
+    fountain: {
+      essence: 10,
+      size:32
     }
   }
 );

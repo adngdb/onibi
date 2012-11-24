@@ -41,6 +41,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy'],
         'img/forest.png',
         'img/onibi.png',
         'img/enemy.png',
+        'img/fountain.png'
       ], function () {
       // ONLY FOR LOCAL TEST
       setTimeout(function() { //wait 2 seconds to see loading in local test
@@ -61,6 +62,13 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy'],
   // Menu
   // -----------------------------------------------------------------
 
+  var pauseContainer = $('#pauseContainer');
+  $('button', pauseContainer).on('click', function () {
+    Crafty.pause();
+    pauseContainer.hide();
+  });
+
+  // MENU
   Crafty.scene('menu', function () {
     Crafty.background('#ccc');
     Crafty.e('2D, DOM, Text')
@@ -112,6 +120,9 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy'],
     Crafty.sprite(CONF.level1.width, 'img/forest.png', {
       map: [0, 0]
     });
+    Crafty.sprite(CONF.fountain.size, 'img/fountain.png', {
+      fountain: [0, 0]
+    });
 
     // Display background
     Crafty.e('2D, Canvas, map, Mouse')
@@ -120,6 +131,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy'],
             var newx = e.clientX - Crafty.viewport.x;
             var newy = e.clientY - Crafty.viewport.y;
             player.move(newx, newy);
+            console.log("enemy(x,y)=("+enemy.x+","+enemy.y+")");
           });
 
     // Borders to move the camera around
@@ -149,7 +161,16 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy'],
                         h: CONF.enemy.size,
                         x: CONF.width / 2 +100,
                         y: CONF.height / 2
-                      });
+                      })
+                      .collision();
+
+    var fountain = Crafty.e('2D, Canvas, Tween, Fountain, fountain')
+                         .attr({
+                          w:CONF.fountain.size, 
+                          h:CONF.fountain.size, 
+                          x: CONF.width / 2 + 200, 
+                          y: CONF.height / 2 })
+                         .collision();
 
     Crafty.bind('EnterFrame', function () {
       enemy.seekPlayer(player.x, player.y);
