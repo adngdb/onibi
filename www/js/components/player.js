@@ -17,6 +17,9 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
         // console.log('enemy hit');
       });
 
+      this.w = 300;
+      this.h = 300;
+
       // Annimation tools
       this.nbLines = CONF.onibi.nbLines;
       this.fireflyLines = { };
@@ -46,11 +49,8 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
         grad.addColorStop( 0   , '#FFF' );
         grad.addColorStop( 0.7 , 'rgba( 255, 255, 50, 1   )' );
         grad.addColorStop( 1   , 'rgba( 255, 255, 50, 0   )' );
-        //grad.addColorStop( 1   , 'rgba( 0  , 0  , 0 , 0.2 )' );
         return grad;
       }
-
-      this.bind( 'EnterFrame', this.render );
     },
     move: function(toX, toY) {
       toX -= this.w / 2;
@@ -76,10 +76,12 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
         this.loseEssence();
       }, CONF.onibi.loseEssenceTimeout);
     },
-    render: function() {
+    draw: function() {
       var baseLength = Math.sqrt( this.essence );
-      var x1      = this.x;
-      var y1      = this.y;
+      this.w = baseLength * CONF.onibi.beamEvolutionMax;
+      this.h = this.w;
+      var x1 = this.x + this.w / 2;
+      var y1 = this.y + this.h / 2;
       Crafty.canvas.context.lineCap   = 'butt';
       Crafty.canvas.context.lineWidth = 2;
       for ( var i=0; i<this.nbLines; i++ ) {
