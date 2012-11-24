@@ -113,17 +113,17 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
     Crafty.sprite(CONF.onibi.size, 'img/onibi.png', {
       onibi: [0, 0]
     });
-    
+
     Crafty.sprite(CONF.enemy.size, 'img/enemy.png', {
       enemy: [0, 0]
     });
-    Crafty.sprite(1, 'img/forest.png', {
+    Crafty.sprite(CONF.level1.width, 'img/forest.png', {
       map: [0, 0]
     });
 
     // Display background
-    Crafty.e('2D, DOM, map, Mouse')
-          .attr({ w: CONF.level1.width, h: CONF.level1.height, x: 0, y: 0})
+    Crafty.e('2D, Canvas, map, Mouse')
+          .attr({x: 0, y: 0})
           .bind('Click', function(e) {
             var newx = e.clientX - Crafty.viewport.x;
             var newy = e.clientY - Crafty.viewport.y;
@@ -135,7 +135,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
     Crafty.e('Borders')
           .borders(CONF.level1.width, CONF.level1.height);
 
-    Crafty.e("2D, DOM, Color, Mouse")
+    Crafty.e("2D, Canvas, Color, Mouse")
           .color("red")
           .attr({ w:50, h:50 })
           .bind("Click", function() {
@@ -143,7 +143,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
           });
 
     // Display the player
-    var player = Crafty.e('2D, DOM, Tween, Onibi, onibi, Delay')
+    var player = Crafty.e('2D, Canvas, Tween, Onibi, onibi, Delay')
       .attr({ w:CONF.onibi.size, h:CONF.onibi.size, x: CONF.width / 2, y: CONF.height / 10 * 9 });
     player.loseEssence();
 
