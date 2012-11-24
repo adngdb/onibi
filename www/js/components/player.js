@@ -51,6 +51,8 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
         grad.addColorStop( 1   , 'rgba( 255, 255, 50, 0   )' );
         return grad;
       }
+
+      this.bind('EnterFrame', function () { this.x = this.x; }.bind(this));
     },
     move: function(toX, toY) {
       toX -= this.w / 2;
