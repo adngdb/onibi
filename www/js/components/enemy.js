@@ -7,9 +7,6 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     init: function () {
       this.requires('Collision').collision();
 
-      // On collision with an enemy
-      this.onHit('onibi', function (entities) {
-        //console.log('onibi hit');
       // On collision with an onibi
       this.onHit('Onibi', function (target) {
         var degat = this.degat;
