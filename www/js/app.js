@@ -19,7 +19,8 @@ require.config({
 
 var global = this;
 
-require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/ennemi'], function($, crafty, CONF, player, ennemi) {
+require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/borders', 'components/ennemi'],
+  function($,       crafty,       CONF,   player,              borders,              ennemi) {
 
   // -----------------------------------------------------------------
   // Configuration
@@ -49,6 +50,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/ennemi
 
   // Scenes help you keep your game organized, with well separated layers
 
+  // LOADER
   //the loading screen that will display while our assets load
   Crafty.scene('loading', function () {
     //load takes an array of assets and a callback when complete
@@ -68,6 +70,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/ennemi
       .css({ 'text-align': 'center', 'color': '#fff' });
   });
 
+  // MENU
   Crafty.scene('menu', function () {
     Crafty.background('#ccc');
     Crafty.e('2D, DOM, Text')
@@ -79,7 +82,10 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/ennemi
       .text('<a href="#" onclick="Crafty.scene(\'game\'); return false;">Play</a>')
       .css({ 'text-align': 'center' });
   });
+
+  // GAME
   Crafty.scene('game', function () {
+    // Pausing the game
     Crafty.bind('Pause', function () {
       var pauseContainer = $('#pauseContainer');
       pauseContainer.show();
@@ -99,21 +105,26 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/ennemi
       }
     });
 
-    Crafty.background('url(img/forest.png)');
-
-    // Display background
-    Crafty.background('url(img/forest.png)');
+    // Borders to move the camera around
+    Crafty.e('Borders')
+          .borders(CONF.level1.width, CONF.level1.height);
 
     // Create sprites to use
     Crafty.sprite(CONF.onibi.size, 'img/onibi.png', {
       onibi: [0, 0]
     });
-    
     Crafty.sprite(CONF.ennemi.size, 'img/ennemi.png', {
       ennemi: [0, 0]
     });
+    Crafty.sprite(1, 'img/forest.png', {
+      map: [0, 0]
+    });
 
-    Crafty.e("2D, Canvas, Color, Mouse")
+    // Display background
+    Crafty.e('2D, DOM, map')
+          .attr({ w: CONF.level1.width, h: CONF.level1.height, x: 0, y: 0, z: -1 });
+
+    Crafty.e("2D, DOM, Color, Mouse")
       .color("red")
       .attr({ w:50, h:50 })
       .bind("Click", function() {
@@ -121,23 +132,23 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/ennemi
       });
 
     // Display the player
-    var player = Crafty.e('2D, Canvas, Tween, Onibi, onibi, Delay')
+    var player = Crafty.e('2D, DOM, Tween, Onibi, onibi, Delay')
       .attr({ w:CONF.onibi.size, h:CONF.onibi.size, x: CONF.width / 2, y: CONF.height / 10 * 9 });
     player.loseEssence();
 
-    var ennemi = Crafty.e('2D, Canvas, Tween, Ennemi, ennemi')
+    var ennemi = Crafty.e('2D, DOM, Tween, Ennemi, ennemi')
       .attr({ w:CONF.ennemi.size, h:CONF.ennemi.size, x: CONF.width / 2 +100, y: CONF.height / 2 });
 
     // Bind the click to move the player's avatar
     Crafty.addEvent(this, Crafty.stage.elem, 'click', function(e) {
-      var newx = e.clientX,
-          newy = e.clientY;
+      var newx = e.clientX - Crafty.viewport.x;
+      var newy = e.clientY - Crafty.viewport.y;
       player.move(newx, newy);
     })
     Crafty.bind('EnterFrame', function () {
-      ennemi.seekPlayer(player.x, player.y);  
+      ennemi.seekPlayer(player.x, player.y);
     });
-    
+
 
   });
 
