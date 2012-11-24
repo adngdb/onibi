@@ -61,22 +61,21 @@ require(['jquery', 'crafty'], function($) {
 
   //the loading screen that will display while our assets load
   Crafty.scene('loading', function () {
-      //load takes an array of assets and a callback when complete
-      Crafty.load(['img/forest.png' /*,'img/others.png' */], function () {
-        // ONLY FOR LOCAL TEST
-        setTimeout(function() { //wait 2 seconds to see loading in local test 
-           Crafty.scene('menu'); // Play the main scene
-        }, 2000);
-        // USE THIS IN PROD
-        //Crafty.scene('menu'); //when everything is loaded, run the main scene
-      });
+    //load takes an array of assets and a callback when complete
+    Crafty.load(['img/forest.png' /*,'img/others.png' */], function () {
+      // ONLY FOR LOCAL TEST
+      setTimeout(function() { //wait 2 seconds to see loading in local test 
+        Crafty.scene('menu'); // Play the main scene
+      }, 2000);
+      // USE THIS IN PROD
+      //Crafty.scene('menu'); //when everything is loaded, run the main scene
+    });
 
-     //black background with some loading text
-      Crafty.background('#000');
-      Crafty.e('2D, DOM, Text').attr({ w: 100, h: 20, x: CONF.width/2-50, y: CONF.height/2-10 })
-              .text('Loading')
-              .css({ 'text-align': 'center', 'color': '#fff' });
-
+    //black background with some loading text
+    Crafty.background('#000');
+    Crafty.e('2D, DOM, Text').attr({ w: 100, h: 20, x: CONF.width/2-50, y: CONF.height/2-10 })
+      .text('Loading')
+      .css({ 'text-align': 'center', 'color': '#fff' });
   });
 
   Crafty.scene('menu', function () {
@@ -99,12 +98,11 @@ require(['jquery', 'crafty'], function($) {
 
     // Create sprites to use
     Crafty.sprite(1, "img/forest.png", {
-        map: [0, 0]
+      map: [0, 0]
     });
     // Create the map in the background
     Crafty.e("2D, DOM, map")
-          .attr({ w: CONF.width, h: CONF.height, x: 0, y: 0 });
-
+      .attr({ w: CONF.width, h: CONF.height, x: 0, y: 0 });
   });
 
   //start 
