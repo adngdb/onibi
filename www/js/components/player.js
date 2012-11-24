@@ -14,8 +14,18 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       this.requires('Collision').collision();
 
       // On collision with an enemy
-      this.onHit('enemy', function (entities) {
-        console.log('enemy hit');
+      this.onHit('Enemy', function (target) {
+        var degat;
+        target[0].obj.each(function(){
+          degat = this.getDegat();
+        });
+        this.looseEssence(degat);
+      });
+
+      // On collision with a fountain
+      this.onHit('fountain', function (target) {
+        this.receiveEssence(CONF.fountain.essence);
+        target[0].obj.destroy();
       });
 
       this.w = 300;
@@ -54,12 +64,6 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       }
 
       this.bind('EnterFrame', function () { this.x = this.x; }.bind(this));
-
-      // On collision with a fountain
-      this.onHit('fountain', function (target) {
-        this.receiveEssence(CONF.fountain.essence);
-        target[0].obj.destroy();
-      });
     },
     move: function(toX, toY) {
       toX -= this.w / 2;
@@ -112,6 +116,18 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       }
       else {
         this.essence += essence;
+      }
+
+      return this;
+    },
+    looseEssence: function(essence) {
+      if((this.essence - essence) <= 0) {
+        console.log('MORT');
+        Crafty.scene('menu');
+      }
+      else {
+        this.essence -= essence;
+        console.log(this.essence);
       }
 
       return this;

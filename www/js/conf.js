@@ -23,7 +23,8 @@ define(
     enemy: {
       vision:150,
       size:32,
-      speed:3
+      speed:3,
+      degat: 2
     },
     fountain: {
       essence: 10,
