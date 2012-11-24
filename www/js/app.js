@@ -26,9 +26,10 @@ require(['jquery', 'crafty'], function($) {
   // -----------------------------------------------------------------
 
   // Because it's good to use configuration
+  var WIDTH = 800, HEIGHT = 600;
 
   // Instanciate Crafty and create a canvas context
-  Crafty.init(400, 300);
+  Crafty.init(WIDTH, HEIGHT);
   Crafty.canvas.init();
 
   // -----------------------------------------------------------------
@@ -51,10 +52,26 @@ require(['jquery', 'crafty'], function($) {
 
   // Scenes help you keep your game organized, with well separated layers
 
-  // Crafty.scene('my-scene', function () {});
-  // And then, to call the scene:
-  // Crafty.scene('my-scene');
+  Crafty.scene('menu', function () {
+    Crafty.background('#ccc');
+    Crafty.e('2D, DOM, Text')
+      .attr({ w: 100, h: 20, x: 350, y: 220 })
+      .text('Onibi')
+      .css({ 'text-align': 'center', 'font-size': '42px' });
+    Crafty.e('2D, DOM, Text')
+      .attr({ w: 100, h: 20, x: 350, y: 280 })
+      .text('<a href="#" onclick="Crafty.scene(\'game\'); return false;">Play</a>')
+      .css({ 'text-align': 'center' });
+  });
+  Crafty.scene('game', function () {
+    Crafty.background('#ccc');
+    Crafty.e('2D, DOM, Text')
+      .attr({ w: 100, h: 20, x: 350, y: 280 })
+      .text('Game')
+      .css({ 'text-align': 'center' });
+  });
 
+  Crafty.scene('menu');
 });
 
 // END REQUIRE.JS CODE
