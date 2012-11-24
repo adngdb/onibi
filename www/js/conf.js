@@ -21,7 +21,7 @@ define(
       height: 1900
     },
     enemy: {
-      vision: 150,
+      vision: 200,
       size:   128,
       image:  'img/spider-color2.png',
       speed:  3,

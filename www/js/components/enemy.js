@@ -38,8 +38,8 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       playerX += CONF.onibi.size / 2;
       playerY += CONF.onibi.size / 2;
 
-      var dx = this.x - playerX;
-      var dy = this.y - playerY;
+      var dx = Math.abs( this.x - playerX ) + CONF.onibi.size / 2;
+      var dy = Math.abs( this.y - playerY ) + CONF.onibi.size / 2;
       var dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
       if (dist <= CONF.enemy.vision) {
