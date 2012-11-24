@@ -6,7 +6,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       this.requires('Collision').collision();
       // On collision with an enemy
       this.onHit('onibi', function (entities) {
-        console.log('onibi hit');
+        // console.log('onibi hit');
       });
 
     },
