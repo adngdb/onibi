@@ -143,6 +143,17 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
       .attr({ w:CONF.onibi.size, h:CONF.onibi.size, x: CONF.width / 2, y: CONF.height / 10 * 9 });
     player.loseEssence();
 
+    // player.warfog = Crafty.e("2D, Canvas, Color")
+    //       .color("#222")
+    //       .attr({ x:0,
+    //               y:0,
+    //               w:Crafty.DOM.window.width, 
+    //               h:Crafty.DOM.window.height });
+
+    // var ctx = Crafty.canvas.context;
+
+    //player.glow
+
     var enemy = Crafty.e('2D, Canvas, Tween, Enemy, enemy')
       .attr({ w:CONF.enemy.size, h:CONF.enemy.size, x: CONF.width / 2 +100, y: CONF.height / 2 });
 

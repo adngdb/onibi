@@ -2,11 +2,11 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
 
   Crafty.c('Onibi', {
     essence: 0,
-
+    warfog:null,
+    glow:null,
     init: function () {
       this.requires('Mouse')
           .areaMap([0, 0], [0, CONF.onibi.size], [CONF.onibi.size, CONF.onibi.size], [CONF.onibi.size, 0]);
-
 
       this.essence = CONF.onibi.essence;
 
@@ -98,6 +98,31 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
         Crafty.canvas.context.lineTo( x2, y2 );
         Crafty.canvas.context.stroke();
       }
+
+      //fog of war
+      //if (this.warfog.x!= -Crafty.viewport.x || this.warfog.y!= -Crafty.viewport.y) {
+        // this.warfog.x = - Crafty.viewport.x;
+        // this.warfog.y = - Crafty.viewport.y;
+        // this.warfog.w = Crafty.DOM.window.width;
+        // this.warfog.h = Crafty.DOM.window.height;
+      
+        
+
+        // console.log("warfog(x,y,w,h)=("+this.warfog.x+","+this.warfog.y+","+this.warfog.w+","+this.warfog.h+")");
+        var ctx = Crafty.canvas.context;
+
+        ctx.fillStyle = "#fff";
+        ctx.beginPath();
+        ctx.fillRect(this.x-100,this.y-100,200,200);
+
+        ctx.globalCompositeOperation = 'destination-out'; 
+        ctx.fillStyle = "#000000";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 100, 0, Math.PI * 2, false);
+        ctx.fill();
+        ctx.globalCompositeOperation = 'source-atop'; 
+      //}
+
     }
   });
 
