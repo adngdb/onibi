@@ -161,16 +161,15 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy'],
                         h: CONF.enemy.size,
                         x: CONF.width / 2 +100,
                         y: CONF.height / 2
-                      })
-                      .collision();
+                      });
 
     var fountain = Crafty.e('2D, Canvas, Tween, Fountain, fountain')
                          .attr({
-                          w:CONF.fountain.size, 
-                          h:CONF.fountain.size, 
-                          x: CONF.width / 2 + 200, 
-                          y: CONF.height / 2 })
-                         .collision();
+                           w:CONF.fountain.size,
+                           h:CONF.fountain.size,
+                           x: CONF.width / 2 + 200,
+                           y: CONF.height / 2
+                          });
 
     Crafty.bind('EnterFrame', function () {
       enemy.seekPlayer(player.x, player.y);
