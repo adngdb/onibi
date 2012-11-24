@@ -12,6 +12,15 @@ define(
       vision:150,
       size:32,
       speed:4
+    },
+    scrolling: {
+      speed: 10,
+      zoneWidth: 50,
+      zoneHeight: 50
+    },
+    level1: {
+      width: 2960,
+      height: 1974
     }
   }
 );
