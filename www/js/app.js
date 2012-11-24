@@ -43,15 +43,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
 
   // Some functions could be useful
 
-  function cloneOnibiPlayer(original) {
-    var entity = Crafty.e('2D, Canvas, Tween, Onibi, firefly');
-    if (original) {
-      entity.x = original.x;
-      entity.y = original.y;
-    }
-    return entity;
-  }
-
   // -----------------------------------------------------------------
   // Scenes
   // -----------------------------------------------------------------
@@ -65,7 +56,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
       // ONLY FOR LOCAL TEST
       setTimeout(function() { //wait 2 seconds to see loading in local test
         Crafty.scene('menu'); // Play the main scene
-      }, 2000);
+      }, 500);
       // USE THIS IN PROD
       //Crafty.scene('menu'); //when everything is loaded, run the main scene
     });
@@ -122,7 +113,16 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, craft
       });
 
     // Display the player
-    cloneOnibiPlayer().attr({ x: CONF.width / 2, y: CONF.height / 10 * 9 });
+    var player = Crafty.e('2D, Canvas, Tween, Onibi, onibi')
+      .attr({ w:CONF.onibi.size, h:CONF.onibi.size, x: CONF.width / 2, y: CONF.height / 10 * 9 });
+
+    // Bind the click to move the player's avatar
+    Crafty.addEvent(this, Crafty.stage.elem, 'click', function(e) {
+      var newx = e.clientX,
+          newy = e.clientY;
+      player.move(newx, newy);
+    })
+
   });
 
   //start
