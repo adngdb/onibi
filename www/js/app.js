@@ -9,7 +9,7 @@
 // Set the path to jQuery, which will fall back to the local version
 // if google is down
 require.config({
-  baseUrl: 'js/lib',
+  baseUrl: 'js',
   paths: {
     'jquery':
             ['//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min',
@@ -19,21 +19,11 @@ require.config({
 
 var global = this;
 
-require(['jquery', 'crafty'], function($) {
+require(['jquery', 'lib/crafty', 'conf' ,'components/player'], function($, crafty, CONF, player) {
 
   // -----------------------------------------------------------------
   // Configuration
   // -----------------------------------------------------------------
-
-  // Because it's good to use configuration
-  var CONF = {
-    width: 960,
-    height: 640,
-    'onibi': {
-      'size': 32,
-      'speed': 5
-    }
-  }
 
   // Instanciate Crafty and create a canvas context
   Crafty.init(CONF.width, CONF.height);
@@ -53,6 +43,15 @@ require(['jquery', 'crafty'], function($) {
 
   // Some functions could be useful
 
+  function cloneOnibiPlayer(original) {
+    var entity = Crafty.e('2D, Canvas, Tween, Onibi, firefly');
+    if (original) {
+      entity.x = original.x;
+      entity.y = original.y;
+    }
+    return entity;
+  }
+
   // -----------------------------------------------------------------
   // Scenes
   // -----------------------------------------------------------------
@@ -62,7 +61,7 @@ require(['jquery', 'crafty'], function($) {
   //the loading screen that will display while our assets load
   Crafty.scene('loading', function () {
     //load takes an array of assets and a callback when complete
-    Crafty.load(['img/forest.png' /*,'img/others.png' */], function () {
+    Crafty.load(['img/forest.png', 'img/onibi.png'], function () {
       // ONLY FOR LOCAL TEST
       setTimeout(function() { //wait 2 seconds to see loading in local test 
         Crafty.scene('menu'); // Play the main scene
@@ -107,9 +106,12 @@ require(['jquery', 'crafty'], function($) {
 
     Crafty.background('url(img/forest.png)');
 
+    // Display background
+    Crafty.background('url(img/forest.png)');
+
     // Create sprites to use
-    Crafty.sprite(1, "img/forest.png", {
-      map: [0, 0]
+    Crafty.sprite(CONF.onibi.size, 'img/onibi.png', {
+      onibi: [0, 0]
     });
 
     Crafty.e("2D, Canvas, Color, Mouse")
@@ -118,6 +120,9 @@ require(['jquery', 'crafty'], function($) {
       .bind("Click", function() {
         Crafty.pause();
       });
+
+    // Display the player
+    cloneOnibiPlayer().attr({ x: CONF.width / 2, y: CONF.height / 10 * 9 });
   });
 
   //start 
