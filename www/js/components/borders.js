@@ -1,11 +1,11 @@
 require(['jquery', 'lib/crafty', 'conf'], function ($, crafty, CONF) {
   Crafty.c('Border', {
     init: function () {
-      this.requires('2D, Mouse');
+      this.requires('2D, Mouse, DOM');
       this.moving = false;
     },
 
-    border: function (direction) {
+    border: function () {
       this.bind("MouseOver", function() {
             this.moving = true;
           })
