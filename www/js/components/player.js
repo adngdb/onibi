@@ -1,7 +1,7 @@
-Crafty.c('Firefly', {
+Crafty.c('Onibi', {
     init: function () {
       this.requires('Mouse')
-          .areaMap([0, 0], [0, CONF.firefly.size], [CONF.firefly.size, CONF.firefly.size], [CONF.firefly.size, 0]);
+          .areaMap([0, 0], [0, CONF.onibi.size], [CONF.onibi.size, CONF.onibi.size], [CONF.onibi.size, 0]);
       this.bind('Click', function () {
         var selected = Crafty('Selected');
         if (selected.length) {
