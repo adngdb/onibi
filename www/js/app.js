@@ -105,8 +105,8 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
       Crafty.scene('menu');
     });
 
-    // Create sprites to use
-    Crafty.sprite(CONF.enemy.size, 'img/enemy.png', {
+    // Create sprites to use    
+    Crafty.sprite(CONF.enemy.size, CONF.enemy.image, {
       enemy: [0, 0]
     });
     Crafty.sprite(CONF.level1.width, 'img/forest.png', {
