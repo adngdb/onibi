@@ -114,10 +114,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
           .borders(CONF.level1.width, CONF.level1.height);
 
     // Create sprites to use
-    Crafty.sprite(CONF.onibi.size, 'img/onibi.png', {
-      onibi: [0, 0]
-    });
-    
     Crafty.sprite(CONF.enemy.size, 'img/enemy.png', {
       enemy: [0, 0]
     });
@@ -137,7 +133,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
       });
 
     // Display the player
-    var player = Crafty.e('2D, DOM, Tween, Onibi, onibi, Delay')
+    var player = Crafty.e('2D, Canvas, Tween, Onibi, Delay')
       .attr({ w:CONF.onibi.size, h:CONF.onibi.size, x: CONF.width / 2, y: CONF.height / 10 * 9 });
     player.loseEssence();
 

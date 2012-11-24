@@ -16,6 +16,40 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       this.onHit('enemy', function (entities) {
         console.log('enemy hit');
       });
+
+      // Annimation tools
+      this.nbLines = CONF.onibi.nbLines;
+      this.fireflyLines = { };
+      this.lineLength = function( i, baseLength ) {
+        var randomInt = function( min, max ) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        var frameInt = function( number, min, max ) {
+          if ( number < min ) {
+            number = min;
+          } else if ( number > max ) {
+            number = max;
+          }
+          return number;
+        }
+        var min = CONF.onibi.beamEvolutionMin * 100;
+        var max = CONF.onibi.beamEvolutionMax * 100;
+        if ( typeof( this.fireflyLines[ i ] ) == 'undefined' ) {
+          this.fireflyLines[ i ] =  randomInt( min, max );
+        } else {
+          this.fireflyLines[ i ] *= randomInt( 95, 105 ) / 100;
+          this.fireflyLines[ i ] =  frameInt( this.fireflyLines[ i ], min, max );
+        }
+        return baseLength * this.fireflyLines[ i ] / 100;
+      }
+      this.addColorStops = function( grad ) {
+        grad.addColorStop( 0  , '#FFF' );
+        grad.addColorStop( 0.7,  'rgb( 255, 255, 50 )' );
+        grad.addColorStop( 1  , 'rgba( 255, 255, 50, 0 )' );
+        return grad;
+      }
+
+      this.bind( 'EnterFrame', function(){ this.render() }.bind(this) );
     },
     move: function(toX, toY) {
       toX -= this.w / 2;
@@ -42,6 +76,25 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
         }
         this.loseEssence();
       }, CONF.onibi.loseEssenceTimeout);
+    },
+    render: function() {
+      var baseLength = Math.sqrt( this.essence );
+      var x1      = this.x;
+      var y1      = this.y;
+      Crafty.canvas.context.lineCap   = 'butt';
+      Crafty.canvas.context.lineWidth = 2;
+      for ( var i=0; i<this.nbLines; i++ ) {
+        var length  = this.lineLength( i, baseLength );
+        var angle   = i * Math.PI / this.nbLines * 2;
+        var x2      = x1 + Math.cos( angle ) * length;
+        var y2      = y1 + Math.sin( angle ) * length;
+        var grad = this.addColorStops( Crafty.canvas.context.createRadialGradient(x1,y1,0,x1,y1,length) );
+        Crafty.canvas.context.strokeStyle = grad;
+        Crafty.canvas.context.beginPath();
+        Crafty.canvas.context.moveTo( x1, y1 );
+        Crafty.canvas.context.lineTo( x2, y2 );
+        Crafty.canvas.context.stroke();
+      }
     }
   });
 

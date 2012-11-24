@@ -5,8 +5,11 @@ define(
     onibi: {
       size: 32,
       speed: 5,
-      essence: 42,
-      loseEssenceTimeout: 2500
+      essence: 300,
+      loseEssenceTimeout: 2500,
+      nbLines: 60,
+      beamEvolutionMin: 0.9,
+      beamEvolutionMax: 1.2,
     },
     scrolling: {
       speed: 10,
