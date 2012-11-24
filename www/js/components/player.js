@@ -5,7 +5,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
 
     init: function () {
       this.requires('Mouse')
-        .areaMap([0, 0], [0, CONF.onibi.size], [CONF.onibi.size, CONF.onibi.size], [CONF.onibi.size, 0]);
+          .areaMap([0, 0], [0, CONF.onibi.size], [CONF.onibi.size, CONF.onibi.size], [CONF.onibi.size, 0]);
 
       this.essence = CONF.onibi.essence;
     },
@@ -30,8 +30,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       this.delay(function() {
         this.essence--;
         console.log(this.essence);
-        if(this.essence === 0)
-        {
+        if (this.essence === 0) {
           Crafty.trigger('Loosing');
         }
         this.loseEssence();
