@@ -5,7 +5,7 @@ define(
     onibi: {
       size: 32,
       speed: 5,
-      essence: 5,
+      essence: 42,
       loseEssenceTimeout: 2500
     },
     ennemi: {
@@ -13,6 +13,5 @@ define(
       size:32,
       speed:4
     }
-
   }
 );
