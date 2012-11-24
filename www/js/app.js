@@ -36,6 +36,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
   // Functions
   // -----------------------------------------------------------------
   var idEnemy = 0;
+  var DIRECTIONS = ['E', 'NE', 'N', 'NW', 'W', 'SW', 'S', 'SE'];
   var generateEnemy = function( x, y ) {
       idEnemy++;
 
@@ -43,8 +44,37 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
       map[ 'enemy' + idEnemy ] = [0, 0];
       Crafty.sprite( CONF.enemy.size, CONF.enemy.image, map );
 
-      return Crafty.e( '2D, Canvas, Tween, Enemy, enemy' + idEnemy )
+      var enemy = Crafty.e( '2D, Canvas, SpriteAnimation, Tween, Enemy, enemy' + idEnemy )
         .attr({ w:CONF.enemy.size, h:CONF.enemy.size, x: x, y: y });
+
+      // Create animations
+      for ( i in DIRECTIONS) { 
+          var dir = DIRECTIONS[i];
+
+          // Standing animation
+          enemy.animate("enemy-" + dir, [
+            [0, i],[0, i],[0, i],[0, i],
+            [1, i],
+            [2, i],
+            [3, i]
+          ] );
+
+          // Moving animation
+          enemy.animate("enemy-moving-" + dir, [
+            [ 4, i],
+            [ 5, i],
+            [ 6, i],
+            [ 7, i],
+            [ 8, i],
+            [ 9, i],
+            [10, i],
+            [11, i]
+          ] );
+
+      }
+      enemy.animate('enemy-E', 24, -1);
+
+      return enemy;
   }
 
 
