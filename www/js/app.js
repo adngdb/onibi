@@ -113,7 +113,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
     Crafty.sprite(CONF.onibi.size, 'img/onibi.png', {
       onibi: [0, 0]
     });
-    
+
     Crafty.sprite(CONF.enemy.size, 'img/enemy.png', {
       enemy: [0, 0]
     });
