@@ -7,7 +7,15 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       this.requires('Mouse')
           .areaMap([0, 0], [0, CONF.onibi.size], [CONF.onibi.size, CONF.onibi.size], [CONF.onibi.size, 0]);
 
+
       this.essence = CONF.onibi.essence;
+
+      this.requires('Collision').collision();
+
+      // On collision with an enemy
+      this.onHit('enemy', function (entities) {
+        console.log('enemy hit');
+      });
     },
     move: function(toX, toY) {
       toX -= this.w / 2;
@@ -25,7 +33,6 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
 
       return this;
     },
-
     loseEssence: function() {
       this.delay(function() {
         this.essence--;

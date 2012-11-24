@@ -19,8 +19,8 @@ require.config({
 
 var global = this;
 
-require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/borders', 'components/ennemi'],
-  function($,       crafty,       CONF,   player,              borders,              ennemi) {
+require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/borders', 'components/enemy'],
+  function($,       crafty,       CONF,   player,              borders,              enemy) {
 
   // -----------------------------------------------------------------
   // Configuration
@@ -54,7 +54,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
   //the loading screen that will display while our assets load
   Crafty.scene('loading', function () {
     //load takes an array of assets and a callback when complete
-    Crafty.load(['img/forest.png', 'img/onibi.png', 'img/ennemi.png'], function () {
+    Crafty.load(['img/forest.png', 'img/onibi.png', 'img/enemy.png'], function () {
       // ONLY FOR LOCAL TEST
       setTimeout(function() { //wait 2 seconds to see loading in local test
         Crafty.scene('menu'); // Play the main scene
@@ -113,8 +113,9 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
     Crafty.sprite(CONF.onibi.size, 'img/onibi.png', {
       onibi: [0, 0]
     });
-    Crafty.sprite(CONF.ennemi.size, 'img/ennemi.png', {
-      ennemi: [0, 0]
+    
+    Crafty.sprite(CONF.enemy.size, 'img/enemy.png', {
+      enemy: [0, 0]
     });
     Crafty.sprite(1, 'img/forest.png', {
       map: [0, 0]
@@ -136,17 +137,19 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
       .attr({ w:CONF.onibi.size, h:CONF.onibi.size, x: CONF.width / 2, y: CONF.height / 10 * 9 });
     player.loseEssence();
 
-    var ennemi = Crafty.e('2D, DOM, Tween, Ennemi, ennemi')
-      .attr({ w:CONF.ennemi.size, h:CONF.ennemi.size, x: CONF.width / 2 +100, y: CONF.height / 2 });
+
+    var enemy = Crafty.e('2D, Canvas, Tween, Enemy, enemy')
+      .attr({ w:CONF.enemy.size, h:CONF.enemy.size, x: CONF.width / 2 +100, y: CONF.height / 2 });
 
     // Bind the click to move the player's avatar
     Crafty.addEvent(this, Crafty.stage.elem, 'click', function(e) {
       var newx = e.clientX - Crafty.viewport.x;
       var newy = e.clientY - Crafty.viewport.y;
       player.move(newx, newy);
+      console.log("enemy(x,y)=("+enemy.x+","+enemy.y+")");
     })
     Crafty.bind('EnterFrame', function () {
-      ennemi.seekPlayer(player.x, player.y);
+      enemy.seekPlayer(player.x, player.y);
     });
 
 

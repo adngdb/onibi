@@ -8,11 +8,6 @@ define(
       essence: 42,
       loseEssenceTimeout: 2500
     },
-    ennemi: {
-      vision:150,
-      size:32,
-      speed:4
-    },
     scrolling: {
       speed: 10,
       zoneWidth: 50,
@@ -21,6 +16,11 @@ define(
     level1: {
       width: 2960,
       height: 1974
+    },
+    enemy: {
+    	vision:150,
+    	size:32,
+    	speed:3
     }
   }
 );
