@@ -110,10 +110,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
     });
 
     // Create sprites to use
-    Crafty.sprite(CONF.onibi.size, 'img/onibi.png', {
-      onibi: [0, 0]
-    });
-
     Crafty.sprite(CONF.enemy.size, 'img/enemy.png', {
       enemy: [0, 0]
     });
@@ -128,7 +124,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
             var newx = e.clientX - Crafty.viewport.x;
             var newy = e.clientY - Crafty.viewport.y;
             player.move(newx, newy);
-            console.log("enemy(x,y)=("+enemy.x+","+enemy.y+")");
+            // console.log("enemy(x,y)=("+enemy.x+","+enemy.y+")");
           });
 
     // Borders to move the camera around
@@ -143,7 +139,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
           });
 
     // Display the player
-    var player = Crafty.e('2D, Canvas, Tween, Onibi, onibi, Delay')
+    var player = Crafty.e('2D, Canvas, Tween, Onibi, Delay')
       .attr({ w:CONF.onibi.size, h:CONF.onibi.size, x: CONF.width / 2, y: CONF.height / 10 * 9 });
     player.loseEssence();
 
