@@ -18,9 +18,9 @@ define(
       height: 1974
     },
     enemy: {
-    	vision:150,
-    	size:32,
-    	speed:3
+      vision:150,
+      size:32,
+      speed:3
     }
   }
 );

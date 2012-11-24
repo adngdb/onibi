@@ -98,6 +98,8 @@ require(['jquery', 'lib/crafty', 'conf' ,'components/player', 'components/border
     });
 
     Crafty.bind('Loosing', function () {
+      Crafty.viewport.x = 0;
+      Crafty.viewport.y = 0;
       Crafty.scene('menu');
     });
 
