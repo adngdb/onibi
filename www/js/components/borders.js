@@ -12,46 +12,51 @@ require(['jquery', 'lib/crafty', 'conf'], function ($, crafty, CONF) {
           .bind("MouseOut", function() {
             this.moving = false;
           });
+      return this;
     }
   });
 
   Crafty.c('Borders', {
-    init: function () {
+    borders: function (levelWidth, levelHeight) {
       this.up = Crafty.e('Border')
                       .attr({
                         x: 0,
                         y: 0,
                         w: Crafty.DOM.window.width,
                         h: CONF.scrolling.zoneHeight
-                      });
+                      })
+                      .border();
       this.down = Crafty.e('Border')
                       .attr({
                         x: 0,
                         y: Crafty.DOM.window.height - CONF.scrolling.zoneHeight,
                         w: Crafty.DOM.window.width,
                         h: CONF.scrolling.zoneHeight
-                      });
+                      })
+                      .border();
       this.left = Crafty.e('Border')
                       .attr({
                         x: 0,
                         y: 0,
                         w: CONF.scrolling.zoneWidth,
                         h: Crafty.DOM.window.height
-                      });
+                      })
+                      .border();
       this.right = Crafty.e('Border')
                       .attr({
                         x: Crafty.DOM.window.width - CONF.scrolling.zoneWidth,
                         y: 0,
                         w: CONF.scrolling.zoneWidth,
                         h: Crafty.DOM.window.height
-                      });
+                      })
+                      .border();
 
       this.bind('EnterFrame', function() {
         if (this.left.moving && Crafty.viewport.x < 0) {
           Crafty.viewport.x += CONF.scrolling.speed;
           this.scroll("x", - CONF.scrolling.speed);
         }
-        if (this.right.moving && Crafty.viewport.x > Crafty.DOM.window.width - LEVEL_WIDTH) {
+        if (this.right.moving && Crafty.viewport.x > Crafty.DOM.window.width - levelWidth) {
           Crafty.viewport.x -= CONF.scrolling.speed;
           this.scroll("x", CONF.scrolling.speed);
         }
@@ -59,7 +64,7 @@ require(['jquery', 'lib/crafty', 'conf'], function ($, crafty, CONF) {
           Crafty.viewport.y += CONF.scrolling.speed;
           this.scroll("y", - CONF.scrolling.speed);
         }
-        if (this.down.moving && Crafty.viewport.y > Crafty.DOM.window.height - LEVEL_HEIGHT) {
+        if (this.down.moving && Crafty.viewport.y > Crafty.DOM.window.height - levelHeight) {
           Crafty.viewport.y -= CONF.scrolling.speed;
           this.scroll("y", CONF.scrolling.speed);
         }
@@ -67,6 +72,7 @@ require(['jquery', 'lib/crafty', 'conf'], function ($, crafty, CONF) {
 
       // Resize borders when the window is changing
       $(window).resize(function() {
+        console.log('Resize');
         this.left.h = Crafty.DOM.window.height;
 
         this.right.h = Crafty.DOM.window.height;
@@ -76,7 +82,7 @@ require(['jquery', 'lib/crafty', 'conf'], function ($, crafty, CONF) {
 
         this.down.w = Crafty.DOM.window.width;
         this.down.y = Crafty.DOM.window.height - CONF.scrolling.zoneHeight - Crafty.viewport.y;
-      });
+      }.bind(this));
     },
 
     scroll: function (axis, value) {
