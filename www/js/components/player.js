@@ -78,7 +78,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     },
     draw: function() {
       var baseLength = Math.sqrt( this.essence );
-      this.w = baseLength * CONF.onibi.beamEvolutionMax;
+      this.w = baseLength * CONF.onibi.beamEvolutionMax * 2;
       this.h = this.w;
       var x1 = this.x + this.w / 2;
       var y1 = this.y + this.h / 2;
