@@ -377,10 +377,8 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
                        .attr({
                          w: CONF.gardian.size,
                          h: CONF.gardian.size,
-                         // x: 2316,
-                         // y: 3560
-                         x: 400,
-                         y: level.map.height - 880
+                         x: 2316,
+                         y: 3560
                        });
     gardian.animate('gardian-pure', [[0, 0]]);
     gardian.animate('gardian-infecte', [[1, 0]]);
