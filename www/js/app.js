@@ -111,11 +111,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
       },
       function(e) {
         //error
-        console.log()
-        console.log(e);
-        setTimeout(function() { //wait if error
-          //
-        }, 3000);
       }
     );
 
