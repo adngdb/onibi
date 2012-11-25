@@ -89,6 +89,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
         'img/fountain.png',
         CONF.enemy.image,
         'img/spells.png',
+        'img/sprite-sort-purification.png',
       ], function () {
       // ONLY FOR LOCAL TEST
       setTimeout(function() { //wait 2 seconds to see loading in local test
@@ -160,6 +161,9 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     Crafty.sprite(CONF.fountain.size, 'img/fountain.png', {
       fountain: [0, 0]
     });
+    Crafty.sprite(CONF.spell.purify.size, 'img/sprite-sort-purification.png', {
+      spellPurify: [0, 0]
+    });
 
     // Display background
     var world = Crafty.e('2D, Canvas, map, Mouse')
@@ -218,7 +222,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
       if (typeof(spellCreator)=='undefined') {
         spellCreator = Crafty.e('SpellManager').spellManager(CONF.spell.purify.type);
       }
-
+      
       for ( var i=0; i<enemies.length; i++ ) {
         enemies[ i ]
           .bind('EnemyFired', function(e) {
@@ -226,9 +230,10 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
           })
           .bind('EnemyStopFired', function(e) {
             if (typeof(spell)!='undefined') spell.stopFire();
-            
+            spell.destroy();
           });
       }
+
     });
 
     document.querySelector('#hud .teletransport').addEventListener('click', function() {
