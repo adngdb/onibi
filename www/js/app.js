@@ -86,7 +86,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
   Crafty.scene('loading', function () {
     Crafty.load([
         'img/forest.png',
-        'img/onibi.png',
         'img/fountain.png',
         CONF.enemy.image,
         'img/spells.png',
