@@ -20,8 +20,8 @@ require.config({
 
 var global = this;
 
-require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/fountain', 'c/spellManager', 'lib/buzz', 'c/impassable'],
-  function($,       crafty,       CONF,   player,     borders,     enemy,     fountain,     spellManager,     buzz,       impassable) {
+require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/fountain', 'c/spellManager', 'lib/buzz', 'c/impassable', 'c/gardian'],
+  function($,       crafty,       CONF,   player,     borders,     enemy,     fountain,     spellManager,     buzz,       impassable,        gardian) {
 
   // -----------------------------------------------------------------
   // Init
@@ -99,6 +99,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
         'img/game_over.png',
         'img/menu_ppal2.png',
         'img/PLAY-OFF-ON.png'
+        'img/gardien-dryade.png'
       ], function () {
         // Loading levels
         function loadLevel(levelIndex) {
@@ -299,6 +300,9 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     Crafty.sprite(CONF.spell.purify.size, 'img/sprite-sort-purification.png', {
       spellPurify: [0, 0]
     });
+    Crafty.sprite(CONF.gardian.size, 'img/gardien-dryade.png', {
+      gardian: [1, 0]
+    });    
 
     //Add audio for level
     var audioLevel1 = new buzz.sound( 'sfx/Musics/Onibi-map2', {
@@ -368,6 +372,20 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
                        });
     player.loseEssence();
 
+    // Display the gardian
+    var gardian = Crafty.e('2D, Canvas, Gardian, gardian')
+                       .attr({
+                         w: CONF.gardian.size,
+                         h: CONF.gardian.size,
+                         // x: 2316,
+                         // y: 3560
+                         x: 400,
+                         y: level.map.height - 880
+                       });
+    gardian.animate('gardian-pure', [[0, 0]]);
+    gardian.animate('gardian-infecte', [[1, 0]]);
+    //gardian.animate( 'gardian-infecte', 24, -1);
+    //gardian.animate( 'gardian-pure', 24, -1);
 
     var fountain = Crafty.e('2D, Canvas, Tween, Fountain, SpriteAnimation, fountain')
                          .attr({

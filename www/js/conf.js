@@ -71,6 +71,10 @@ define(
       ],
       start: 1,
       layers: ['a.jpg', 'b.png']
+    },
+    gardian : {
+      size: 236,
+      corruption:150
     }
   }
 );
