@@ -13,10 +13,9 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       this.enemy = enemy;
 
       this.fireCallback = function() {
-        // if (this.enemy.isFired()){
-          this.enemy.looseCorruption(CONF.spell.purify.strength);
-          this.player.looseEssence(CONF.spell.purify.strength);
-        // }
+        
+        this.enemy.looseCorruption(CONF.spell.purify.strength);
+        this.player.looseEssence(CONF.spell.purify.strength);
       };
 
       return this;
@@ -24,8 +23,6 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     fire: function() {
       
       console.log("purify fire()");
-      // toX = this.enemy.x - this.enemy.w/2 ;
-      // toY = this.enemy.y - this.enemy.h/2 ;
       toX = this.enemy.x;
       toY = this.enemy.y;
 

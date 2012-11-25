@@ -14,7 +14,7 @@ require(['lib/crafty','conf', 'c/spellPurify'], function(crafty, CONF, purify) {
       var spell;
       switch (this.spellType) {
         case CONF.spell.purify.type: //spell purify
-            console.log("PURIFY");
+            console.log("Spell purify");
             spell = Crafty.e('2D, Canvas, Tween, SpellPurify')
                           .spellPurify(player, enemy)
                           .attr({x:player.x, y:player.y, w:CONF.spell.purify.size, h:CONF.spell.purify.size});
