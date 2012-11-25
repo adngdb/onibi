@@ -26,6 +26,7 @@ define(
       realSizeX: 40,
       realSizeY: 35,
       image: 'img/spider-color.png',
+      imagePurified: 'img/spider-color2-purifie.png',
       speed: 3,
       degat: 2,
       corruption: 20

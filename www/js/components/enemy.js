@@ -44,7 +44,6 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
         if (this.isCorrupted( )) {
           var degat = this.degat;
           target[0].obj.each(function(){
-            console.log('attack');
             this.looseEssence(degat);
           });
         }
@@ -110,7 +109,10 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     looseCorruption: function(essence){
       if (this.isCorrupted( )) {
         this.corruption -= essence;
-        console.log("Enemy corruption : "+this.corruption);
+        if ( ! this.isCorrupted( ) ) {
+          this.removeComponent( 'enemy' );
+          this.addComponent( 'enemyPurified' );
+        }
       }
     }
   });

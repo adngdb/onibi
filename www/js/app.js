@@ -41,15 +41,16 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
   // -----------------------------------------------------------------
   var idEnemy = 0;
   var DIRECTIONS = ['E', 'NE', 'N', 'NW', 'W', 'SW', 'S', 'SE'];
+
+  Crafty.sprite( CONF.enemy.size, CONF.enemy.image, {
+    enemy: [0, 0]
+  } );
+  Crafty.sprite( CONF.enemy.size, CONF.enemy.imagePurified, {
+    enemyPurified: [0, 0]
+  } );
+
   var generateEnemy = function( x, y ) {
-
-    idEnemy++;
-
-    var map = { }
-    map[ 'enemy' + idEnemy ] = [0, 0];
-    Crafty.sprite( CONF.enemy.size, CONF.enemy.image, map );
-
-    var enemy = Crafty.e( '2D, Canvas, SpriteAnimation, Tween, Enemy, enemy' + idEnemy )
+    var enemy = Crafty.e( '2D, Canvas, SpriteAnimation, Tween, Enemy, enemy' )
       .attr({ w:CONF.enemy.size, h:CONF.enemy.size, x: x, y: y, z: 1 });
 
     // Create animations
@@ -90,8 +91,9 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
   Crafty.scene('loading', function () {
     // Loading graphic resources
     Crafty.load([
-        CONF.enemy.image,
         'img/fountain.png',
+        CONF.enemy.image,
+        CONF.enemy.imagePurified,
         'img/spells.png',
         'img/sprite-sort-purification.png',
       ],
