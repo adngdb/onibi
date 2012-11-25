@@ -22,3 +22,36 @@ h1, p {
     display: block;
     margin: 310px auto 0px auto;
 }
+
+#hud {
+    display: none;
+    background: url('../img/HUD.png');
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: -230px;
+    width: 461px;
+    height: 87px;
+}
+
+#hud a {
+    display: block;
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    top: 4px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#hud .purify {
+    left: 107px;
+}
+
+#hud .teletransport {
+    left: 171px;
+}
+
+#hud .stun {
+    left: 238px;
+}
