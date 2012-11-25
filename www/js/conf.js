@@ -35,18 +35,19 @@ define(
       size:    119
     },
     spell: {
+      uiBoxSize : 50,
       purify : {
         size:32,
-        type : '1',
-        speed : '8'
+        type : 1,
+        strength : 0.1
       },
       slowDown : {
         size:32,
-        type : '2',
-        speed : '5'
+        type : 2,
+        strength : 5
       },
       teleportation : {
-        type : '3'
+        type : 3
       }
     }
   }

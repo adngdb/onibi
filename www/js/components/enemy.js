@@ -19,13 +19,15 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
 
       this.requires('Mouse')
           .areaMap([0, 0], [0, CONF.enemy.size], [CONF.enemy.size, CONF.enemy.size], [CONF.enemy.size, 0])
-          .bind('MouseDown', function() {
+          .bind('MouseDown', function(e) {
             console.log('Fired');
             this.fired = 1;
+            this.trigger('EnemyFired', e);
           })
-          .bind('MouseUp', function() {
+          .bind('MouseUp', function(e) {
             console.log('Not fired');
             this.fired = 0;
+            this.trigger('EnemyStopFired', e);
           })
 
       // On collision with an onibi
@@ -98,8 +100,10 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       return this.fired;
     },
     looseCorruption: function(essence){
-      this.corruption -= essence;
-      console.log("Enemy corruption : "+this.corruption);
+      if (this.corruption>0) {
+        this.corruption -= essence;
+        console.log("Enemy corruption : "+this.corruption);
+      }
     }
 
   });

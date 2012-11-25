@@ -38,6 +38,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
   var idEnemy = 0;
   var DIRECTIONS = ['E', 'NE', 'N', 'NW', 'W', 'SW', 'S', 'SE'];
   var generateEnemy = function( x, y ) {
+    
     idEnemy++;
 
     var map = { }
@@ -167,12 +168,8 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
             var newy = e.clientY - Crafty.viewport.y;
             player.move(newx, newy);
 
-            //spells
-            var spell = Crafty.e('2D, Canvas, Tween, SpellManager')
-                              .createSpell(CONF.spell.purify.type, player, enemy);
-            spell.fire();
-
           });
+                   
 
     // Borders to move the camera around
     Crafty.e('Borders')
@@ -201,6 +198,36 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     var enemies = [ ];
     enemies.push( generateEnemy( CONF.width / 2 + 100, CONF.height / 2 ) );
     enemies.push( generateEnemy( CONF.width / 2 - 100, CONF.height / 2 ) );
+
+    //handle spells
+    
+
+    //purify spell box
+    Crafty.e('2D, DOM, Color, Mouse')
+          .color("gray")
+          .attr({x: 0, y: Crafty.DOM.window.height, w:CONF.spell.uiBoxSize, h:CONF.spell.uiBoxSize})
+          .areaMap([0, 0], [0, CONF.spell.uiBoxSize], [CONF.spell.uiBoxSize, CONF.spell.uiBoxSize], [CONF.spell.uiBoxSize, 0])
+          .bind('Click', function(e) {
+            
+            var spell;
+            var spellCreator = Crafty.e('SpellManager').spellManager(CONF.spell.purify.type);
+            console.log('spellCreator');
+
+            for ( var i=0; i<enemies.length; i++ ) {
+              enemies[ i ]
+              .bind('EnemyFired', function(e) {
+                console.log("create spell");
+                spell = spellCreator.createSpell(player, this).fire();
+              })
+              .bind('EnemyStopFired', function(e) {
+                if (spell!=undefined) spell.stopFire();
+              });
+            }
+
+          });
+
+
+                      
 
     Crafty.bind('EnterFrame', function () {
       for ( var i=0; i<enemies.length; i++ ) {
