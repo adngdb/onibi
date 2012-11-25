@@ -3,7 +3,6 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
   Crafty.c('Onibi', {
     essence: 0,
     maxEssence: 0,
-
     init: function () {
       this.requires('Mouse')
           .areaMap([0, 0], [0, CONF.onibi.size], [CONF.onibi.size, CONF.onibi.size], [CONF.onibi.size, 0]);
