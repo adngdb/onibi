@@ -81,10 +81,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     },
     loseEssence: function() {
       this.delay(function() {
-        this.essence--;
-        if (this.essence === 0) {
-          Crafty.trigger('Loosing');
-        }
+        this.looseEssence( 1 );
         this.loseEssence();
       }, CONF.onibi.loseEssenceTimeout);
     },
@@ -127,9 +124,8 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     looseEssence: function(essence) {
       this.essence -= essence;
       if( this.essence <= 0) {
-        Crafty.scene('menu');
+        Crafty.trigger('Loosing');
       }
-
       return this;
     }
   });
