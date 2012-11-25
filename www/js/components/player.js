@@ -14,9 +14,9 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
 
       // On collision with an enemy
       this.onHit('Enemy', function (target) {
-        var degat;
+        var degat = 0;
         target[0].obj.each(function(){
-          degat = this.getDegat();
+          degat += this.getDegat();
         });
         this.looseEssence(degat);
       });
@@ -120,11 +120,9 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       return this;
     },
     looseEssence: function(essence) {
-      if((this.essence - essence) <= 0) {
+      this.essence -= essence;
+      if( this.essence <= 0) {
         Crafty.scene('menu');
-      }
-      else {
-        this.essence -= essence;
       }
 
       return this;
