@@ -122,7 +122,6 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     },
     looseEssence: function(essence) {
       if((this.essence - essence) <= 0) {
-        console.log('MORT');
         Crafty.scene('menu');
       }
       else {

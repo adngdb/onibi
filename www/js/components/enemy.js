@@ -5,7 +5,16 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     degat: 0,
 
     init: function () {
-      this.requires('Collision').collision();
+      var collisionerSizeX = CONF.enemy.size / 2;
+      var collisionerSizeY = (CONF.enemy.size / 4) * 3 - 9;
+      var realSizeX = CONF.enemy.realSizeX / 2 + 2;
+      var realSizeY = CONF.enemy.realSizeY / 2 + 2;
+      this.requires('Collision').collision(new Crafty.polygon(
+          [collisionerSizeX - realSizeX, collisionerSizeY - realSizeY],
+          [collisionerSizeX + realSizeX, collisionerSizeY - realSizeY],
+          [collisionerSizeX + realSizeX, collisionerSizeY + realSizeY],
+          [collisionerSizeX - realSizeX, collisionerSizeY + realSizeY]
+      ));
 
       // On collision with an onibi
       this.onHit('Onibi', function (target) {

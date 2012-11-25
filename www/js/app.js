@@ -38,43 +38,43 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
   var idEnemy = 0;
   var DIRECTIONS = ['E', 'NE', 'N', 'NW', 'W', 'SW', 'S', 'SE'];
   var generateEnemy = function( x, y ) {
-      idEnemy++;
+    idEnemy++;
 
-      var map = { }
-      map[ 'enemy' + idEnemy ] = [0, 0];
-      Crafty.sprite( CONF.enemy.size, CONF.enemy.image, map );
+    var map = { }
+    map[ 'enemy' + idEnemy ] = [0, 0];
+    Crafty.sprite( CONF.enemy.size, CONF.enemy.image, map );
 
-      var enemy = Crafty.e( '2D, Canvas, SpriteAnimation, Tween, Enemy, enemy' + idEnemy )
-        .attr({ w:CONF.enemy.size, h:CONF.enemy.size, x: x, y: y });
+    var enemy = Crafty.e( '2D, Canvas, SpriteAnimation, Tween, Enemy, enemy' + idEnemy )
+      .attr({ w:CONF.enemy.size, h:CONF.enemy.size, x: x, y: y });
 
-      // Create animations
-      for ( i in DIRECTIONS) { 
-          var dir = DIRECTIONS[i];
+    // Create animations
+    for ( i in DIRECTIONS) {
+      var dir = DIRECTIONS[i];
 
-          // Standing animation
-          enemy.animate("enemy-" + dir, [
-            [0, i],[0, i],[0, i],[0, i],
-            [1, i],
-            [2, i],
-            [3, i]
-          ] );
+      // Standing animation
+      enemy.animate("enemy-" + dir, [
+        [0, i],[0, i],[0, i],[0, i],
+        [1, i],
+        [2, i],
+        [3, i]
+      ] );
 
-          // Moving animation
-          enemy.animate("enemy-moving-" + dir, [
-            [ 4, i],
-            [ 5, i],
-            [ 6, i],
-            [ 7, i],
-            [ 8, i],
-            [ 9, i],
-            [10, i],
-            [11, i]
-          ] );
+      // Moving animation
+      enemy.animate("enemy-moving-" + dir, [
+        [ 4, i],
+        [ 5, i],
+        [ 6, i],
+        [ 7, i],
+        [ 8, i],
+        [ 9, i],
+        [10, i],
+        [11, i]
+      ] );
 
-      }
-      enemy.animate('enemy-E', 24, -1);
+    }
+    enemy.animate('enemy-E', 24, -1);
 
-      return enemy;
+    return enemy;
   }
 
 
@@ -86,8 +86,8 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     Crafty.load([
         'img/forest.png',
         'img/onibi.png',
-        'img/enemy.png',
-        'img/fountain.png'
+        'img/fountain.png',
+        CONF.enemy.image
       ], function () {
       // ONLY FOR LOCAL TEST
       setTimeout(function() { //wait 2 seconds to see loading in local test
@@ -190,7 +190,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
                            y: CONF.height / 2
                           });
 
-    enemies = [ ];
+    var enemies = [ ];
     enemies.push( generateEnemy( CONF.width / 2 + 100, CONF.height / 2 ) );
     enemies.push( generateEnemy( CONF.width / 2 - 100, CONF.height / 2 ) );
 
