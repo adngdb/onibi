@@ -127,7 +127,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     looseEssence: function(essence) {
       this.essence -= essence;
       if( this.essence <= 0) {
-        Crafty.scene('menu');
+        Crafty.scene('gameOver');
       }
 
       return this;

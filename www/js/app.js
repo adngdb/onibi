@@ -90,13 +90,16 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
         CONF.enemy.image,
         'img/spells.png',
         'img/sprite-sort-purification.png',
+        'img/game_over.png',
+        'img/menu_ppal2.png',
+        'img/PLAY-OFF-ON.png'
       ], function () {
       // ONLY FOR LOCAL TEST
       setTimeout(function() { //wait 2 seconds to see loading in local test
         Crafty.scene('menu'); // Play the main scene
       }, 500);
       // USE THIS IN PROD
-      //Crafty.scene('menu'); //when everything is loaded, run the main scene
+//      Crafty.scene('menu'); //when everything is loaded, run the main scene
     });
 
     //black background with some loading text
@@ -110,15 +113,40 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
   // Menu
   // -----------------------------------------------------------------
   Crafty.scene('menu', function () {
-    Crafty.background('#ccc');
-    Crafty.e('2D, DOM, Text')
-      .attr({ w: 100, h: 20, x: 460, y: 220 })
-      .text('Onibi')
-      .css({ 'text-align': 'center', 'font-size': '42px' });
-    Crafty.e('2D, DOM, Text')
-      .attr({ w: 100, h: 20, x: 460, y: 280 })
-      .text('<a href="#" onmousedown="Crafty.scene(\'game\'); return false;">Play</a>')
-      .css({ 'text-align': 'center' });
+    Crafty.sprite(1, 'img/menu_ppal2.png', {
+      menu: [0, 0]
+    });
+    Crafty.sprite(808, 'img/PLAY-OFF-ON.png', {
+      play_on: [0, 0],
+      play_off: [1, 0]
+    });
+
+    Crafty.e('2D, DOM, menu')
+      .attr({ w: 1024, h: 768, x: (Crafty.DOM.window.width / 2) - 512, y: 0 });
+
+    Crafty.e('2D, DOM, play_off,  Mouse')
+      .attr({ w: 808, h: 125, x: (Crafty.DOM.window.width / 2) - 404, y: 350 })
+      .bind("MouseOver", function() {
+          this.addComponent('play_on').removeComponent('play_off');
+      })
+      .bind("MouseOut", function() {
+          this.addComponent('play_off').removeComponent('play_on');
+      })
+      .bind("MouseDown", function() {
+          Crafty.scene("game");
+      });
+  });
+
+  // -----------------------------------------------------------------
+  // Game Over
+  // -----------------------------------------------------------------
+  Crafty.scene('gameOver', function () {
+    Crafty.sprite(1, 'img/game_over.png', {
+      gameOver: [0, 0]
+    });
+
+    Crafty.e('2D, DOM, gameOver')
+      .attr({ w: 1024, h: 768, x: (Crafty.DOM.window.width / 2) - 512, y: 0 });
   });
 
   // -----------------------------------------------------------------
@@ -151,7 +179,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
       document.getElementById('hud').setAttribute( 'style', 'display: none' ); 
       Crafty.viewport.x = 0;
       Crafty.viewport.y = 0;
-      Crafty.scene('menu');
+      Crafty.scene('gameOver');
     });
 
     // Create sprites to use   
