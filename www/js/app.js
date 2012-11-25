@@ -345,15 +345,17 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
                          .attr({
                            w: CONF.fountain.size,
                            h: CONF.fountain.size,
-                           x: CONF.width / 2 + 200,
-                           y: CONF.height / 2
+                           x: 590,
+                           y: level.map.height - 1650
                           })
                          .animate('fountain-idle', 0, 0, 3)
                          .animate('fountain-idle', 60, -1);
 
     var enemies = [ ];
-    enemies.push( generateEnemy( CONF.width / 2 + 100, CONF.height / 2 ) );
-    enemies.push( generateEnemy( CONF.width / 2 - 100, CONF.height / 2 ) );
+    enemies.push( generateEnemy(  450, level.map.height - 1250 ) );
+    enemies.push( generateEnemy(  720, level.map.height - 1400 ) );
+    enemies.push( generateEnemy(  400, level.map.height - 500 ) );
+    enemies.push( generateEnemy( 1200, level.map.height - 1500 ) );
 
     //handle spells
     //purify spell box
