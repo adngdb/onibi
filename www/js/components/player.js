@@ -27,6 +27,11 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
         target[0].obj.destroy();
       });
 
+      // On collision with an impassable zone
+      this.onHit('Impassable', function (target) {
+        console.log(';ljdsahf');
+      });
+
       this.w = 300;
       this.h = 300;
 
