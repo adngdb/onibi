@@ -19,7 +19,6 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     },
     fire: function() {
       
-      console.log("teleportation fire()");
       toX = this.targetX - this.player.w/2;
       toY = this.targetY - this.player.h/2;
 

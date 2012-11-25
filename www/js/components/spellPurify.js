@@ -23,7 +23,6 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     },
     fire: function() {
       
-      console.log("purify fire()");
       toX = this.enemy.x;
       toY = this.enemy.y;
 
@@ -42,7 +41,6 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       return this;
     },
     stopFire : function() {
-      console.log("purify stopfire()");
       if (this.dist<=CONF.spell.purify.dist) {
         this.unbind('EnterFrame');
       }
