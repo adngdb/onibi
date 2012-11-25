@@ -34,7 +34,7 @@ require(['lib/crafty', 'lib/buzz','conf'], function(crafty, buzz, CONF) {
       toY = this.enemy.y;
 
       this.x = toX + this.enemy.w/2 - this.w/2 - 10; //magic number
-      this.y = toY + this.enemy.h/2 - this.h/2 ; 
+      this.y = toY + this.enemy.h/2 - this.h/2 + 20; 
 
       var dx = this.player.x - toX,
           dy = this.player.y - toY;
