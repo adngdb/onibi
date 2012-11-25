@@ -1,4 +1,5 @@
-require(['lib/crafty','conf', 'c/spellPurify'], function(crafty, CONF, purify) {
+require(['lib/crafty','conf', 'c/spellPurify', 'c/spellTeleportation'], 
+  function(crafty,      CONF,         purify,       teleportation) {
 
   Crafty.c('SpellManager', {
     spellType:0,
@@ -9,16 +10,22 @@ require(['lib/crafty','conf', 'c/spellPurify'], function(crafty, CONF, purify) {
       this.spellType = spellType;
       return this;
     },
-    createSpell: function (player, enemy){
+    createSpell: function (player, target){
 
       var spell;
       switch (this.spellType) {
         case CONF.spell.purify.type: //spell purify
             console.log("Spell purify");
             spell = Crafty.e('2D, Canvas, Tween, SpellPurify')
-                          .spellPurify(player, enemy)
+                          .spellPurify(player, target)
                           .attr({x:player.x, y:player.y, w:CONF.spell.purify.size, h:CONF.spell.purify.size});
-            this.spellType = 0;
+          break;
+
+        case CONF.spell.teleportation.type: //spell purify
+            console.log("Spell teleportation");
+            spell = Crafty.e('2D, Canvas, Tween, SpellTeleportation')
+                          .spellTeleportation(player, target)
+                          .attr({x:player.x, y:player.y, w:CONF.spell.teleportation.size, h:CONF.spell.teleportation.size});
           break;
 
         default :

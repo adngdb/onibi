@@ -38,6 +38,7 @@ define(
       uiBoxSize : 50,
       purify : {
         size:32,
+        dist : 400,
         type : 1,
         strength : 0.1
       },
@@ -47,7 +48,9 @@ define(
         strength : 5
       },
       teleportation : {
-        type : 3
+        dist : 800,
+        type : 3,
+        strength : 50
       }
     }
   }
