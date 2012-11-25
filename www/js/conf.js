@@ -37,7 +37,7 @@ define(
     spell: {
       uiBoxSize : 50,
       purify : {
-        size:32,
+        size : 120,
         dist : 400,
         type : 1,
         strength : 0.1

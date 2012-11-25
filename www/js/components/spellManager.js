@@ -15,9 +15,11 @@ require(['lib/crafty','conf', 'c/spellPurify', 'c/spellTeleportation'],
       var spell;
       switch (this.spellType) {
         case CONF.spell.purify.type: //spell purify
-            spell = Crafty.e('2D, Canvas, Tween, SpellPurify')
+            spell = Crafty.e('2D, Canvas, SpriteAnimation, SpellPurify, spellPurify')
                           .spellPurify(player, target)
                           .attr({x:player.x, y:player.y, w:CONF.spell.purify.size, h:CONF.spell.purify.size});
+            // Standing animation
+            spell.animate('purify-anim', [[0, 0],[0, 1],[0, 2],[0, 3]]);
           break;
 
         case CONF.spell.teleportation.type: //spell purify
