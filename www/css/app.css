@@ -29,12 +29,15 @@ h1, p {
     position: fixed;
     top: 0;
     left: 50%;
-    margin-left: -230px;
+    margin: 0 0 0 -230px;
     width: 461px;
     height: 87px;
+    list-style-type: none;
+    margin-top: 0;
+    padding: 0;
 }
 
-#hud a {
+#hud li {
     display: block;
     position: absolute;
     width: 51px;
