@@ -218,12 +218,10 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
       if (typeof(spellCreator)=='undefined') {
         spellCreator = Crafty.e('SpellManager').spellManager(CONF.spell.purify.type);
       }
-      console.log('box purify');
 
       for ( var i=0; i<enemies.length; i++ ) {
         enemies[ i ]
           .bind('EnemyFired', function(e) {
-            //console.log("create spell");
             spell = spellCreator.createSpell(player, this).fire();
           })
           .bind('EnemyStopFired', function(e) {
@@ -245,7 +243,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
       if (typeof(spellCreator)=='undefined') {
         spellCreator = Crafty.e('SpellManager').spellManager(CONF.spell.teleportation.type);
       }
-      console.log('box teleportation');
 
       world.bind('MouseUp', function(e) { 
         if( e.mouseButton == Crafty.mouseButtons.RIGHT ) {
