@@ -373,7 +373,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     player.loseEssence();
 
     // Display the gardian
-    var gardian = Crafty.e('2D, Canvas, Gardian, gardian')
+    var gardian = Crafty.e('2D, Canvas, Gardian, SpriteAnimation, gardian')
                        .attr({
                          w: CONF.gardian.size,
                          h: CONF.gardian.size,
@@ -384,7 +384,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
                        });
     gardian.animate('gardian-pure', [[0, 0]]);
     gardian.animate('gardian-infecte', [[1, 0]]);
-    //gardian.animate( 'gardian-infecte', 24, -1);
+    gardian.animate( 'gardian-infecte', 24, -1);
     //gardian.animate( 'gardian-pure', 24, -1);
 
     var fountain = Crafty.e('2D, Canvas, Tween, Fountain, SpriteAnimation, fountain')
