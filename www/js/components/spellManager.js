@@ -15,14 +15,12 @@ require(['lib/crafty','conf', 'c/spellPurify', 'c/spellTeleportation'],
       var spell;
       switch (this.spellType) {
         case CONF.spell.purify.type: //spell purify
-            console.log("Spell purify");
             spell = Crafty.e('2D, Canvas, Tween, SpellPurify')
                           .spellPurify(player, target)
                           .attr({x:player.x, y:player.y, w:CONF.spell.purify.size, h:CONF.spell.purify.size});
           break;
 
         case CONF.spell.teleportation.type: //spell purify
-            console.log("Spell teleportation");
             spell = Crafty.e('2D, Canvas, Tween, SpellTeleportation')
                           .spellTeleportation(player, target)
                           .attr({x:player.x, y:player.y, w:CONF.spell.teleportation.size, h:CONF.spell.teleportation.size});

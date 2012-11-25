@@ -55,3 +55,7 @@ h1, p {
 #hud .stun {
     left: 238px;
 }
+
+#hud .extra {
+    left: 302px;
+}
