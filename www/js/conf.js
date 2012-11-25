@@ -32,7 +32,7 @@ define(
       corruption: 20
     },
     fountain: {
-      essence: 10,
+      essence: 200,
       size:    119
     },
     spell: {
