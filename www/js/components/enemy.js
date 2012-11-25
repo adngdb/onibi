@@ -72,7 +72,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
 
     seekPlayer: function (playerX, playerY) {
 
-      if (this.corruption > 0) { 
+      if (this.isCorrupted( )) { 
 
         playerX += CONF.onibi.size / 2;
         playerY += CONF.onibi.size / 2;
@@ -95,13 +95,15 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     isFired: function() {
       return this.fired;
     },
+    isCorrupted: function( ) {
+      return (this.corruption>0);
+    },
     looseCorruption: function(essence){
-      if (this.corruption>0) {
+      if (this.isCorrupted( )) {
         this.corruption -= essence;
         console.log("Enemy corruption : "+this.corruption);
       }
     }
-
   });
 
 });

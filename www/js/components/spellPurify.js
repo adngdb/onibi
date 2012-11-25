@@ -18,10 +18,12 @@ require(['lib/crafty', 'lib/buzz','conf'], function(crafty, buzz, CONF) {
       this.enemy = enemy;
 
       this.fireCallback = function() {
-        this.stop()
-          .animate( 'purify-anim', 24, -1);
-        this.enemy.looseCorruption(CONF.spell.purify.strength);
-        this.player.looseEssence(CONF.spell.purify.strength);
+        if (this.enemy.isCorrupted( )) {
+          this.enemy.looseCorruption(CONF.spell.purify.strength);
+          this.player.looseEssence(CONF.spell.purify.strength);
+        } else {
+          this.stopFire( );
+        }
       };
 
       return this;
@@ -40,6 +42,7 @@ require(['lib/crafty', 'lib/buzz','conf'], function(crafty, buzz, CONF) {
       this.dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
       if (this.dist<=CONF.spell.purify.dist) {
+        this.animate( 'purify-anim', 24, -1);
         this.bind('EnterFrame', this.fireCallback);
 
         this.audioEffect.play().loop();
@@ -51,13 +54,12 @@ require(['lib/crafty', 'lib/buzz','conf'], function(crafty, buzz, CONF) {
       return this;
     },
     stopFire : function() {
-      if (this.dist<=CONF.spell.purify.dist) {
-        this.unbind('EnterFrame');
-        this.stop();
+      this.unbind('EnterFrame');
+      this.stop()
+        .animate( 'purify-none', 24, -1);
 
-        //stop audio effect
-        this.audioEffect.fadeOut(1000);
-      }
+      //stop audio effect
+      this.audioEffect.fadeOut(1000);
     }
 
   });
