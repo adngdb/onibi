@@ -182,13 +182,15 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
                        });
     player.loseEssence();
 
-    var fountain = Crafty.e('2D, Canvas, Tween, Fountain, fountain')
+    var fountain = Crafty.e('2D, Canvas, Tween, Fountain, SpriteAnimation, fountain')
                          .attr({
-                           w:CONF.fountain.size,
-                           h:CONF.fountain.size,
+                           w: CONF.fountain.size,
+                           h: CONF.fountain.size,
                            x: CONF.width / 2 + 200,
                            y: CONF.height / 2
-                          });
+                          })
+                         .animate('fountain-idle', 0, 0, 3)
+                         .animate('fountain-idle', 60, -1);
 
     var enemies = [ ];
     enemies.push( generateEnemy( CONF.width / 2 + 100, CONF.height / 2 ) );

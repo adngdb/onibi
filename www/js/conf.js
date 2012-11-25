@@ -31,7 +31,7 @@ define(
     },
     fountain: {
       essence: 10,
-      size:    32
+      size:    119
     }
   }
 );
