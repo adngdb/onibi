@@ -20,32 +20,32 @@ require(['jquery', 'lib/crafty', 'conf'], function ($, crafty, CONF) {
     borders: function (levelWidth, levelHeight) {
       this.up = Crafty.e('Border')
                       .attr({
-                        x: 0,
-                        y: 0,
+                        x: -Crafty.viewport.x,
+                        y: -Crafty.viewport.y,
                         w: Crafty.DOM.window.width,
                         h: CONF.scrolling.zoneHeight
                       })
                       .border();
       this.down = Crafty.e('Border')
                       .attr({
-                        x: 0,
-                        y: Crafty.DOM.window.height - CONF.scrolling.zoneHeight,
+                        x: -Crafty.viewport.x,
+                        y: -Crafty.viewport.y + Crafty.DOM.window.height - CONF.scrolling.zoneHeight,
                         w: Crafty.DOM.window.width,
                         h: CONF.scrolling.zoneHeight
                       })
                       .border();
       this.left = Crafty.e('Border')
                       .attr({
-                        x: 0,
-                        y: 0,
+                        x: -Crafty.viewport.x,
+                        y: -Crafty.viewport.y,
                         w: CONF.scrolling.zoneWidth,
                         h: Crafty.DOM.window.height
                       })
                       .border();
       this.right = Crafty.e('Border')
                       .attr({
-                        x: Crafty.DOM.window.width - CONF.scrolling.zoneWidth,
-                        y: 0,
+                        x: -Crafty.viewport.x + Crafty.DOM.window.width - CONF.scrolling.zoneWidth,
+                        y: -Crafty.viewport.y,
                         w: CONF.scrolling.zoneWidth,
                         h: Crafty.DOM.window.height
                       })
