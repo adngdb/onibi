@@ -161,7 +161,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     });
 
     // Display background
-    Crafty.e('2D, Canvas, map, Mouse')
+    var world = Crafty.e('2D, Canvas, map, Mouse')
           .attr({x: 0, y: 0})
           .bind('Click', function(e) {
             var newx = e.clientX - Crafty.viewport.x;
@@ -208,9 +208,19 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
           .areaMap([0, 0], [0, CONF.spell.uiBoxSize], [CONF.spell.uiBoxSize, CONF.spell.uiBoxSize], [CONF.spell.uiBoxSize, 0])
           .bind('Click', function(e) {
             
+            //unbind existings event for spells
+            for ( var j=0; j<enemies.length; j++ ) {
+              enemies[ j ].unbind('EnemyFired')
+                .unbind('EnemyStopFired');
+            }
+            world.unbind('MouseUp');
+
             var spell;
-            var spellCreator = Crafty.e('SpellManager').spellManager(CONF.spell.purify.type);
-            //console.log('spellCreator');
+            var spellCreator;
+            if (typeof(spellCreator)=='undefined') {
+              spellCreator = Crafty.e('SpellManager').spellManager(CONF.spell.purify.type);
+            }
+            console.log('box purify');
 
             for ( var i=0; i<enemies.length; i++ ) {
               enemies[ i ]
@@ -220,10 +230,36 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
                 })
                 .bind('EnemyStopFired', function(e) {
                   if (typeof(spell)!='undefined') spell.stopFire();
-                  this.unbind('EnemyFired')
-                    .unbind('EnemyStopFired');
+                  
                 });
             }
+
+          });
+
+    Crafty.e('2D, DOM, Color, Mouse')
+          .color("red")
+          .attr({x: CONF.spell.uiBoxSize, y: Crafty.DOM.window.height, w:CONF.spell.uiBoxSize, h:CONF.spell.uiBoxSize})
+          .areaMap([0, 0], [0, CONF.spell.uiBoxSize], [CONF.spell.uiBoxSize, CONF.spell.uiBoxSize], [CONF.spell.uiBoxSize, 0])
+          .bind('Click', function(e) {
+            
+            for ( var j=0; j<enemies.length; j++ ) {
+              enemies[ j ].unbind('EnemyFired')
+                .unbind('EnemyStopFired');
+            }
+                  
+            var spell;
+            var spellCreator;
+            if (typeof(spellCreator)=='undefined') {
+              spellCreator = Crafty.e('SpellManager').spellManager(CONF.spell.teleportation.type);
+            }
+            console.log('box teleportation');
+
+            world.bind('MouseUp', function(e) { //right click for teleportation
+              if( e.mouseButton == Crafty.mouseButtons.RIGHT ) {
+                var target = { x:e.clientX - Crafty.viewport.x, y:e.clientY - Crafty.viewport.y };
+                spell = spellCreator.createSpell(player, target).fire();    
+              }
+            })
 
           });
 
