@@ -14,7 +14,8 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       this.enemy = enemy;
 
       this.fireCallback = function() {
-        
+        this.stop()
+          .animate( 'purify-anim', 24, -1);
         this.enemy.looseCorruption(CONF.spell.purify.strength);
         this.player.looseEssence(CONF.spell.purify.strength);
       };
@@ -26,8 +27,11 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       toX = this.enemy.x;
       toY = this.enemy.y;
 
-      var dx = this.x - toX,
-          dy = this.y - toY;
+      this.x = toX + this.enemy.w/2 - this.w/2 - 10; //magic number
+      this.y = toY + this.enemy.h/2 - this.h/2 ; 
+
+      var dx = this.player.x - toX,
+          dy = this.player.y - toY;
 
       this.dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
@@ -43,6 +47,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     stopFire : function() {
       if (this.dist<=CONF.spell.purify.dist) {
         this.unbind('EnterFrame');
+        this.stop();
       }
     }
 
