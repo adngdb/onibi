@@ -37,15 +37,17 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
             }
           });
 
+      this.degat = CONF.enemy.degat;
+
       // On collision with an onibi
       this.onHit('Onibi', function (target) {
-        var degat = this.degat;
-        target[0].obj.each(function(){
-          this.looseEssence(degat);
-        });
+        if (this.isCorrupted( )) {
+          var degat = this.degat;
+          target[0].obj.each(function(){
+            this.looseEssence(degat);
+          });
+        }
       });
-
-      this.degat = CONF.enemy.degat;
 
       this.DIRECTIONS = [ 'W', 'SW', 'S', 'SE', 'E', 'NE', 'N', 'NW'];
 
@@ -78,8 +80,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     },
 
     seekPlayer: function (playerX, playerY) {
-
-      if (this.isCorrupted( )) { 
+      if (this.isCorrupted( )) {
 
         playerX += CONF.onibi.size / 2;
         playerY += CONF.onibi.size / 2;
@@ -108,7 +109,10 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     looseCorruption: function(essence){
       if (this.isCorrupted( )) {
         this.corruption -= essence;
-        console.log("Enemy corruption : "+this.corruption);
+        if ( ! this.isCorrupted( ) ) {
+          this.removeComponent( 'enemy' );
+          this.addComponent( 'enemyPurified' );
+        }
       }
     }
   });
