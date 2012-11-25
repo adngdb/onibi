@@ -233,7 +233,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
       }
     });
 
-    document.querySelector('#hud .purify').addEventListener('click', function() {
+    document.querySelector('#hud .teletransport').addEventListener('click', function() {
             
       for ( var j=0; j<enemies.length; j++ ) {
         enemies[ j ].unbind('EnemyFired')
