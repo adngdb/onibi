@@ -27,6 +27,11 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
         target[0].obj.destroy();
       });
 
+      // On collision with an impassable zone
+      this.onHit('Impassable', function (target) {
+        console.log(';ljdsahf');
+      });
+
       this.w = 300;
       this.h = 300;
 
@@ -81,15 +86,12 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     },
     loseEssence: function() {
       this.delay(function() {
-        this.essence--;
-        if (this.essence === 0) {
-          Crafty.trigger('Loosing');
-        }
+        this.looseEssence( 1 );
         this.loseEssence();
       }, CONF.onibi.loseEssenceTimeout);
     },
     draw: function() {
-      if( this.essence > 0) {
+      if( this.isAlive( ) ) {
         var baseLength = Math.sqrt( this.essence );
         this.w = baseLength * CONF.onibi.beamEvolutionMax * 2;
         this.h = this.w;
@@ -124,12 +126,15 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
 
       return this;
     },
+    isAlive: function() {
+      return ( this.essence > 0 );
+    },
     looseEssence: function(essence) {
+      console.log( 'loose ' + essence);
       this.essence -= essence;
-      if( this.essence <= 0) {
-        Crafty.scene('gameOver');
+      if( ! this.isAlive ( ) ) {
+        Crafty.trigger('Loosing');
       }
-
       return this;
     }
   });

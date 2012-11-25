@@ -26,6 +26,7 @@ define(
       realSizeX: 40,
       realSizeY: 35,
       image: 'img/spider-color.png',
+      imagePurified: 'img/spider-color2-purifie.png',
       speed: 3,
       degat: 2,
       corruption: 20
@@ -40,7 +41,7 @@ define(
         size : 120,
         dist : 400,
         type : 1,
-        strength : 0.1
+        strength : 0.2
       },
       slowDown : {
         size:32,
@@ -51,7 +52,25 @@ define(
         dist : 800,
         type : 3,
         strength : 50
-      }
+      },
+    },
+    level: {
+      levels: [
+        {
+          id: 1,
+          filename: '1.json'
+        },
+        {
+          id: 2,
+          filename: '2.json'
+        },
+        {
+          id: 3,
+          filename: '3.json'
+        },
+      ],
+      start: 1,
+      layers: ['a.jpg', 'b.png']
     }
   }
 );
