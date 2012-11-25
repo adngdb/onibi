@@ -22,10 +22,12 @@ define(
     },
     enemy: {
       vision: 200,
-      size:   128,
-      image:  'img/spider-color2.png',
-      speed:  3,
-      degat:  2
+      size: 128,
+      realSizeX: 40,
+      realSizeY: 35,
+      image: 'img/spider-color.png',
+      speed: 3,
+      degat: 2
     },
     fountain: {
       essence: 10,
