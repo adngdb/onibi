@@ -20,8 +20,8 @@ require.config({
 
 var global = this;
 
-require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/fountain', 'c/spellManager'],
-  function($,       crafty,       CONF,   player,     borders,     enemy,     fountain,     spellManager) {
+require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/fountain', 'c/spellManager', 'lib/buzz'],
+  function($,       crafty,       CONF,   player,     borders,     enemy,     fountain,     spellManager,     buzz) {
 
   // -----------------------------------------------------------------
   // Init
@@ -85,19 +85,39 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
   //the loading screen that will display while our assets load
   Crafty.scene('loading', function () {
     Crafty.load([
+      // -- IMAGES assets -- //
         'img/forest.png',
         'img/fountain.png',
         CONF.enemy.image,
         'img/spells.png',
         'img/sprite-sort-purification.png',
-      ], function () {
-      // ONLY FOR LOCAL TEST
-      setTimeout(function() { //wait 2 seconds to see loading in local test
-        Crafty.scene('menu'); // Play the main scene
-      }, 500);
-      // USE THIS IN PROD
-      //Crafty.scene('menu'); //when everything is loaded, run the main scene
-    });
+
+      // -- AUDIO assets -- //
+        // 'sfx/Musics/Onibi-map2.ogg',
+        // 'sfx/Sfxs/Spere_01.ogg',
+        // 'sfx/Sfxs/Spere_02.ogg',
+        // 'sfx/Sfxs/Spere_03.ogg',
+        // 'sfx/Sfxs/Magic_01.ogg',
+        // 'sfx/Sfxs/Magic_02.ogg',
+        // 'sfx/Sfxs/Magic_03.ogg',
+        // 'sfx/Sfxs/Magic_04.ogg',        
+
+      ], 
+      function () {
+        Crafty.scene('menu'); //when everything is loaded, run the main scene
+      },
+      function(e) {
+        //progress
+      },
+      function(e) {
+        //error
+        console.log()
+        console.log(e);
+        setTimeout(function() { //wait if error
+          //
+        }, 3000);
+      }
+    );
 
     //black background with some loading text
     Crafty.background('#000');
@@ -165,6 +185,14 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
       spellPurify: [0, 0]
     });
 
+    //Add audio for level
+    var audioLevel1 = new buzz.sound( 'sfx/Musics/Onibi-map2', {
+        formats: [ "ogg" ]
+    });
+    audioLevel1.play()
+        .fadeIn()
+        .loop();
+
     // Display background
     var world = Crafty.e('2D, Canvas, map, Mouse')
           .attr({x: 0, y: 0})
@@ -173,6 +201,9 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
             var newy = e.clientY - Crafty.viewport.y;
             player.move(newx, newy);
           });
+
+    //Play music of level1
+    Crafty.audio.play("level1", -1);
 
     // Display HUD
     document.getElementById('hud').setAttribute( 'style', 'display: block' );       
