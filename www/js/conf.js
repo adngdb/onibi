@@ -18,7 +18,21 @@ define(
     },
     level1: {
       width: 1900,
-      height: 1900
+      height: 1900,
+      gates: {
+        gate1: {
+          level: 'leve2',
+          position: 'right',
+          x: 42,
+          y:42
+        },
+        gate2: {
+          level: 'leve3',
+          position: 'down',
+          x: 42,
+          y: 42
+        }
+      }
     },
     worldMap: {
       width: 640,

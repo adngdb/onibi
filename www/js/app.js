@@ -20,8 +20,8 @@ require.config({
 
 var global = this;
 
-require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/fountain', 'c/spellManager'],
-  function($,       crafty,       CONF,   player,     borders,     enemy,     fountain,     spellManager) {
+require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/fountain', 'c/spellManager', 'c/gates'],
+  function($,       crafty,       CONF,   player,     borders,     enemy,     fountain,     spellManager,     gates) {
 
   // -----------------------------------------------------------------
   // Init
@@ -241,12 +241,16 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
             player.move(newx, newy);
           });
 
-    // Display HUD
-    document.getElementById('hud').setAttribute( 'style', 'display: block' );       
-
     // Borders to move the camera around
     Crafty.e('Borders')
           .borders(CONF.level1.width, CONF.level1.height);
+
+    // Display HUD
+    document.getElementById('hud').setAttribute( 'style', 'display: block' );
+
+    // Borders to go to the world map
+    Crafty.e('Gates')
+          .gates(CONF.level1.width, CONF.level1.height);
 
     // Display the player
     var player = Crafty.e('2D, Canvas, Tween, Onibi, Delay')
@@ -257,7 +261,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
                          y: CONF.height / 10 * 9
                        });
     player.loseEssence();
-
 
     var fountain = Crafty.e('2D, Canvas, Tween, Fountain, SpriteAnimation, fountain')
                          .attr({
