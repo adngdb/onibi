@@ -27,11 +27,28 @@ define(
       realSizeY: 35,
       image: 'img/spider-color.png',
       speed: 3,
-      degat: 2
+      degat: 2,
+      corruption: 20
     },
     fountain: {
       essence: 10,
       size:    119
+    },
+    spell: {
+      uiBoxSize : 50,
+      purify : {
+        size:32,
+        type : 1,
+        strength : 0.1
+      },
+      slowDown : {
+        size:32,
+        type : 2,
+        strength : 5
+      },
+      teleportation : {
+        type : 3
+      }
     }
   }
 );

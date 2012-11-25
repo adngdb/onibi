@@ -20,8 +20,8 @@ require.config({
 
 var global = this;
 
-require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/fountain'],
-  function($,       crafty,       CONF,   player,     borders,     enemy,     fountain) {
+require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/fountain', 'c/spellManager'],
+  function($,       crafty,       CONF,   player,     borders,     enemy,     fountain,     spellManager) {
 
   // -----------------------------------------------------------------
   // Init
@@ -38,6 +38,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
   var idEnemy = 0;
   var DIRECTIONS = ['E', 'NE', 'N', 'NW', 'W', 'SW', 'S', 'SE'];
   var generateEnemy = function( x, y ) {
+
     idEnemy++;
 
     var map = { }
@@ -87,7 +88,8 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
         'img/forest.png',
         'img/onibi.png',
         'img/fountain.png',
-        CONF.enemy.image
+        CONF.enemy.image,
+        'img/spells.png',
       ], function () {
       // ONLY FOR LOCAL TEST
       setTimeout(function() { //wait 2 seconds to see loading in local test
@@ -166,7 +168,9 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
             var newx = e.clientX - Crafty.viewport.x;
             var newy = e.clientY - Crafty.viewport.y;
             player.move(newx, newy);
+
           });
+                   
 
     // Borders to move the camera around
     Crafty.e('Borders')
@@ -182,6 +186,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
                        });
     player.loseEssence();
 
+
     var fountain = Crafty.e('2D, Canvas, Tween, Fountain, SpriteAnimation, fountain')
                          .attr({
                            w: CONF.fountain.size,
@@ -195,6 +200,33 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     var enemies = [ ];
     enemies.push( generateEnemy( CONF.width / 2 + 100, CONF.height / 2 ) );
     enemies.push( generateEnemy( CONF.width / 2 - 100, CONF.height / 2 ) );
+
+    //handle spells
+    //purify spell box
+    Crafty.e('2D, DOM, Color, Mouse')
+          .color("gray")
+          .attr({x: 0, y: Crafty.DOM.window.height, w:CONF.spell.uiBoxSize, h:CONF.spell.uiBoxSize})
+          .areaMap([0, 0], [0, CONF.spell.uiBoxSize], [CONF.spell.uiBoxSize, CONF.spell.uiBoxSize], [CONF.spell.uiBoxSize, 0])
+          .bind('Click', function(e) {
+            
+            var spell;
+            var spellCreator = Crafty.e('SpellManager').spellManager(CONF.spell.purify.type);
+            //console.log('spellCreator');
+
+            for ( var i=0; i<enemies.length; i++ ) {
+              enemies[ i ]
+                .bind('EnemyFired', function(e) {
+                  //console.log("create spell");
+                  spell = spellCreator.createSpell(player, this).fire();
+                })
+                .bind('EnemyStopFired', function(e) {
+                  if (typeof(spell)!='undefined') spell.stopFire();
+                  this.unbind('EnemyFired')
+                    .unbind('EnemyStopFired');
+                });
+            }
+
+          });
 
     Crafty.bind('EnterFrame', function () {
       for ( var i=0; i<enemies.length; i++ ) {
