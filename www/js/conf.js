@@ -40,7 +40,7 @@ define(
         size : 120,
         dist : 400,
         type : 1,
-        strength : 0.1
+        strength : 0.2
       },
       slowDown : {
         size:32,

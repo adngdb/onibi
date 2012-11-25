@@ -1,12 +1,16 @@
-require(['lib/crafty','conf'], function(crafty, CONF) {
+require(['lib/crafty', 'lib/buzz','conf'], function(crafty, buzz, CONF) {
 
   Crafty.c('SpellPurify', {
     player:undefined,
     enemy:undefined,
     fireCallback:undefined,
     dist:0,
+    audioEffect:undefined,
     init: function () {
 
+      this.audioEffect = new buzz.sound( 'sfx/Sfxs/Magic_02', {
+            formats: [ "ogg" ]
+        });
     },
     spellPurify: function (player, enemy){
 
@@ -37,6 +41,8 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
 
       if (this.dist<=CONF.spell.purify.dist) {
         this.bind('EnterFrame', this.fireCallback);
+
+        this.audioEffect.play().loop();
       }
       else {
         console.log('Player is too far from the enemy for the spell !');
@@ -48,6 +54,9 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       if (this.dist<=CONF.spell.purify.dist) {
         this.unbind('EnterFrame');
         this.stop();
+
+        //stop audio effect
+        this.audioEffect.fadeOut(1000);
       }
     }
 
