@@ -4,6 +4,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     player:undefined,
     enemy:undefined,
     fireCallback:undefined,
+    dist:0,
     init: function () {
 
     },
@@ -27,17 +28,24 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       toY = this.enemy.y;
 
       var dx = this.x - toX,
-          dy = this.y - toY,
-          dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)),
-          speed = Math.round(dist / CONF.spell.speed);
+          dy = this.y - toY;
 
-      this.bind('EnterFrame', this.fireCallback);
+      this.dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+
+      if (this.dist<=CONF.spell.purify.dist) {
+        this.bind('EnterFrame', this.fireCallback);
+      }
+      else {
+        console.log('Player is too far from the enemy for the spell !');
+      }
 
       return this;
     },
     stopFire : function() {
       console.log("purify stopfire()");
-      this.unbind('EnterFrame');
+      if (this.dist<=CONF.spell.purify.dist) {
+        this.unbind('EnterFrame');
+      }
     }
 
   });
