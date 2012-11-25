@@ -123,7 +123,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     },
     isAlive: function() {
       return ( this.essence > 0 );
-    }
+    },
     looseEssence: function(essence) {
       this.essence -= essence;
       if( ! this.isAlive ( ) ) {
