@@ -147,6 +147,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
 
     // Losing the game
     Crafty.bind('Loosing', function () {
+      document.getElementById('hud').setAttribute( 'style', 'display: none' ); 
       Crafty.viewport.x = 0;
       Crafty.viewport.y = 0;
       Crafty.scene('menu');
@@ -167,9 +168,10 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
             var newx = e.clientX - Crafty.viewport.x;
             var newy = e.clientY - Crafty.viewport.y;
             player.move(newx, newy);
-
           });
-                   
+
+    // Display HUD
+    document.getElementById('hud').setAttribute( 'style', 'display: block' );       
 
     // Borders to move the camera around
     Crafty.e('Borders')
