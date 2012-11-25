@@ -305,7 +305,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     // Load all impassable zones
     for (var i in level.impassables) {
       var imp = level.impassables[i];
-      Crafty.e('2D, Canvas, Mouse, Collision, WiredHitBox, Impassable')
+      Crafty.e('2D, Canvas, Mouse, Collision, Impassable')
             .attr({ x: imp.x, y: imp.y, w: imp.width, h: imp.height })
             .collision(new Crafty.polygon(imp.polygon))
             .areaMap(new Crafty.polygon(imp.polygon))
