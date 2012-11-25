@@ -127,7 +127,6 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       }
       else {
         this.essence -= essence;
-        console.log(this.essence);
       }
 
       return this;

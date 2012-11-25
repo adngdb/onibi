@@ -16,21 +16,31 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       });
 
       this.degat = CONF.enemy.degat;
+      this.DIRECTIONS = [ 'W', 'SW', 'S', 'SE', 'E', 'NE', 'N', 'NW'];
     },
 
     move: function (toX, toY) {
       toX -= this.w / 2;
       toY -= this.h / 2;
 
-      var dx = this.x - toX;
-      var dy = this.y - toY;
-      var dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-      var speed = Math.round(dist / CONF.enemy.speed);
+      var dx = this.x - toX,
+          dy = this.y - toY,
+          dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)),
+          speed = Math.round(dist / CONF.enemy.speed),
+          angle = Math.atan2(dy, dx) + Math.PI,
+          dir   = Math.round( angle / ( Math.PI / 4 ) ) % 8;
 
       if (dist !== 0) {
-        this.tween({ x: toX, y: toY }, speed);
+        this.stop()
+          .animate( 'enemy-moving-' + this.DIRECTIONS[dir], 24, -1)
+          .tween({ x: toX, y: toY }, speed)
+          .bind( 'TweenEnd' , function(e) {
+            this.stop()
+              .animate( 'enemy-' + this.DIRECTIONS[dir], 24, -1)
+              .unbind( 'TweenEnd' );
+          } );
       }
-
+      
       return this;
     },
 
@@ -38,8 +48,8 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       playerX += CONF.onibi.size / 2;
       playerY += CONF.onibi.size / 2;
 
-      var dx = this.x - playerX;
-      var dy = this.y - playerY;
+      var dx = Math.abs( this.x - playerX ) + CONF.onibi.size / 2;
+      var dy = Math.abs( this.y - playerY ) + CONF.onibi.size / 2;
       var dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
       if (dist <= CONF.enemy.vision) {
