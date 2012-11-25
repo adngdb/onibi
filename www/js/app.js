@@ -98,7 +98,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
         'img/sprite-sort-purification.png',
         'img/game_over.png',
         'img/menu_ppal2.png',
-        'img/PLAY-OFF-ON.png'
+        'img/PLAY-OFF-ON.png',
         'img/gardien-dryade.png'
       ], function () {
         // Loading levels
