@@ -12,15 +12,6 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
 
       this.requires('Collision').collision();
 
-      // On collision with an enemy
-      this.onHit('Enemy', function (target) {
-        var degat = 0;
-        target[0].obj.each(function(){
-          degat += this.getDegat();
-        });
-        this.looseEssence(degat);
-      });
-
       // On collision with a fountain
       this.onHit('fountain', function (target) {
         this.receiveEssence(CONF.fountain.essence);
@@ -130,6 +121,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       return ( this.essence > 0 );
     },
     looseEssence: function(essence) {
+      console.log( 'loose ' + essence);
       this.essence -= essence;
       if( ! this.isAlive ( ) ) {
         Crafty.trigger('Loosing');

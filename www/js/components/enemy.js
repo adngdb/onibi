@@ -37,15 +37,18 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
             }
           });
 
+      this.degat = CONF.enemy.degat;
+
       // On collision with an onibi
       this.onHit('Onibi', function (target) {
-        var degat = this.degat;
-        target[0].obj.each(function(){
-          this.looseEssence(degat);
-        });
+        if (this.isCorrupted( )) {
+          var degat = this.degat;
+          target[0].obj.each(function(){
+            console.log('attack');
+            this.looseEssence(degat);
+          });
+        }
       });
-
-      this.degat = CONF.enemy.degat;
 
       this.DIRECTIONS = [ 'W', 'SW', 'S', 'SE', 'E', 'NE', 'N', 'NW'];
 
@@ -78,8 +81,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     },
 
     seekPlayer: function (playerX, playerY) {
-
-      if (this.isCorrupted( )) { 
+      if (this.isCorrupted( )) {
 
         playerX += CONF.onibi.size / 2;
         playerY += CONF.onibi.size / 2;
