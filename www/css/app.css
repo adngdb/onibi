@@ -40,25 +40,43 @@ h1, p {
 #hud li {
     display: block;
     position: absolute;
-    width: 51px;
-    height: 51px;
-    top: 4px;
+    width: 49px;
+    height: 49px;
+    top: 5px;
     cursor: pointer;
     z-index: 10;
+    background-image: url('../img/sort.png');
+    background-position: 0 -159px;
 }
 
 #hud .purify {
     left: 107px;
+    background-position: 0 0;
+}
+#hud .purify:focus,
+#hud .purify:active {
+    background-position: -53px 0;
 }
 
 #hud .teletransport {
-    left: 171px;
+    left: 172px;
+    background-position: 0 -106px;
+}
+#hud .teletransport:focus,
+#hud .teletransport:active {
+    background-position: -53px -106px;
 }
 
 #hud .stun {
-    left: 238px;
+    left: 239px;
+    background-position: 0 -53px;
+}
+#hud .stun:focus,
+#hud .stun:active {
+    background-position: -53px -53px;
 }
 
 #hud .extra {
-    left: 302px;
+    left: 303px;
+    background-image: none;
 }
