@@ -20,8 +20,8 @@ require.config({
 
 var global = this;
 
-require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/fountain', 'c/spell'],
-  function($,       crafty,       CONF,   player,     borders,     enemy,     fountain,     spell) {
+require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/fountain', 'c/spellManager'],
+  function($,       crafty,       CONF,   player,     borders,     enemy,     fountain,     spellManager) {
 
   // -----------------------------------------------------------------
   // Init
@@ -158,9 +158,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     Crafty.sprite(CONF.fountain.size, 'img/fountain.png', {
       fountain: [0, 0]
     });
-    Crafty.sprite(CONF.spell.size, 'img/spells.png', {
-      spell: [0, 0]
-    });
 
     // Display background
     Crafty.e('2D, Canvas, map, Mouse')
@@ -169,8 +166,11 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
             var newx = e.clientX - Crafty.viewport.x;
             var newy = e.clientY - Crafty.viewport.y;
             player.move(newx, newy);
-            player.spells[0].fire(newx, newy, enemy);
-            console.log("enemy(x,y)=("+enemy.x+","+enemy.y+")");
+
+            //spells
+            var spell = Crafty.e('2D, Canvas, Tween, SpellManager')
+                              .createSpell(CONF.spell.purify.type, player, enemy);
+            spell.fire();
 
           });
 
@@ -187,13 +187,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
                          y: CONF.height / 10 * 9
                        });
     player.loseEssence();
-
-    //spells
-    player.spells.push(
-      Crafty.e('2D, Canvas, Tween, Spell, spell')
-        .spell(CONF.spell.purify.type)
-        .attr({x:player.x, y:player.y, w:CONF.spell.purify.size, h:CONF.spell.purify.size})
-    );
 
     var fountain = Crafty.e('2D, Canvas, Tween, Fountain, SpriteAnimation, fountain')
                          .attr({

@@ -27,7 +27,8 @@ define(
       realSizeY: 35,
       image: 'img/spider-color.png',
       speed: 3,
-      degat: 2
+      degat: 2,
+      corruption: 20
     },
     fountain: {
       essence: 10,

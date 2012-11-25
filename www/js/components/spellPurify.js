@@ -1,39 +1,41 @@
 require(['lib/crafty','conf'], function(crafty, CONF) {
-  spellType:0,
+
   Crafty.c('SpellPurify', {
-    sourceX:0,
-    sourceY:0,
-    destX:0,
-    destY:0,
-    init: function () {  
+    player:null,
+    enemy:null,
+    init: function () {
 
     },
-    spell: function (playerX, playerY, targetX, targetY){
+    spellPurify: function (player, enemy){
 
-      this.sourceX = playerX;
-      this.sourceY = playerY;
-      this.destX = targetX;
-      this.destY = targetY;
+      this.player = player;
+      this.enemy = enemy;
 
       return this;
     },
-    fire: function(toX, toY, target) {
+    fire: function() {
       
-      console.log("fire(toX,toY)=("+toX+","+toY+")");
-     
-      console.log("purify");
-      toX -= target.w / 2;
-      toY -= target.h / 2;
+      console.log("purify fire()");
 
-      var dx = this.x - toX,
-          dy = this.y - toY,
-          dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)),
-          speed = Math.round(dist / CONF.spell.speed);
+      if (this.enemy.isFired()){
+        console.log("Enemy is fired !");
+        // toX = this.enemy.x - this.enemy.w/2 ;
+        // toY = this.enemy.y - this.enemy.h/2 ;
+        toX = this.enemy.x;
+        toY = this.enemy.y;
 
-      this.tween({ x: toX, y: toY }, speed);
-      this.bind('TweenEnd', function(e){
-        console.log('TweenEnd');
-      });
+        var dx = this.x - toX,
+            dy = this.y - toY,
+            dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)),
+            speed = Math.round(dist / CONF.spell.speed);
+
+        // this.tween({ x: toX, y: toY }, speed);
+
+      
+      }
+      else {
+        console.log("Enemy not fired");
+      }
 
       return this;
     }

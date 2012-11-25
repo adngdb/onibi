@@ -1,10 +1,11 @@
 require(['lib/crafty','conf'], function(crafty, CONF) {
 
   Crafty.c('Enemy', {
-
+    fired: 0,
     degat: 0,
-
+    corruption: 0,
     init: function () {
+
       var collisionerSizeX = CONF.enemy.size / 2;
       var collisionerSizeY = (CONF.enemy.size / 4) * 3 - 9;
       var realSizeX = CONF.enemy.realSizeX / 2 + 2;
@@ -16,6 +17,17 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
           [collisionerSizeX - realSizeX, collisionerSizeY + realSizeY]
       ));
 
+      this.requires('Mouse')
+          .areaMap([0, 0], [0, CONF.enemy.size], [CONF.enemy.size, CONF.enemy.size], [CONF.enemy.size, 0])
+          .bind('MouseDown', function() {
+            console.log('Fired');
+            this.fired = 1;
+          })
+          .bind('MouseUp', function() {
+            console.log('Not fired');
+            this.fired = 0;
+          })
+
       // On collision with an onibi
       this.onHit('Onibi', function (target) {
         var degat = this.degat;
@@ -25,7 +37,10 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       });
 
       this.degat = CONF.enemy.degat;
+
       this.DIRECTIONS = [ 'W', 'SW', 'S', 'SE', 'E', 'NE', 'N', 'NW'];
+
+      this.corruption = CONF.enemy.corruption;
     },
 
     move: function (toX, toY) {
@@ -54,21 +69,37 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     },
 
     seekPlayer: function (playerX, playerY) {
-      playerX += CONF.onibi.size / 2;
-      playerY += CONF.onibi.size / 2;
+
+      if (this.corruption > 0) { 
 
       var dx = Math.abs( this.x - playerX ) + CONF.onibi.size / 2;
       var dy = Math.abs( this.y - playerY ) + CONF.onibi.size / 2;
       var dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
-      if (dist <= CONF.enemy.vision) {
-        this.move(playerX, playerY);
+        playerX += CONF.onibi.size / 2;
+        playerY += CONF.onibi.size / 2;
+
+        var dx = this.x - playerX;
+        var dy = this.y - playerY;
+        var dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+
+        if (dist <= CONF.enemy.vision) {
+          this.move(playerX, playerY);
+        }
+
       }
 
       return this;
     },
     getDegat: function() {
       return this.degat;
+    },
+    isFired: function() {
+      return this.fired;
+    },
+    looseCorruption: function(essence){
+      this.corruption -= essence;
+      console.log("Enemy corruption : "+this.corruption);
     }
 
   });
