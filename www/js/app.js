@@ -78,7 +78,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     return enemy;
   }
 
-
   // -----------------------------------------------------------------
   // Loader
   // -----------------------------------------------------------------
@@ -90,6 +89,10 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
         CONF.enemy.image,
         'img/spells.png',
         'img/sprite-sort-purification.png',
+        'img/worldMap.png',
+        'img/worldMap-level1.png',
+        'img/worldMap-level2.png',
+        'img/worldMap-level3.png'
       ], function () {
       // ONLY FOR LOCAL TEST
       setTimeout(function() { //wait 2 seconds to see loading in local test
@@ -104,6 +107,70 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     Crafty.e('2D, DOM, Text').attr({ w: 100, h: 20, x: CONF.width/2-50, y: CONF.height/2-10 })
       .text('Loading')
       .css({ 'text-align': 'center', 'color': '#fff' });
+  });
+
+  // -----------------------------------------------------------------
+  // Loader
+  // -----------------------------------------------------------------
+  //the loading screen that will display while our assets load
+  Crafty.scene('worldMap', function () {
+    Crafty.sprite(CONF.worldMap.width, 'img/worldMap.png', {
+      worldMap: [0, 0]
+    });
+    Crafty.sprite(CONF.worldMap.level1.width, 'img/worldMap-level1.png', {
+      worldMapLevel1: [0, 0]
+    });
+    Crafty.sprite(CONF.worldMap.level2.width, 'img/worldMap-level2.png', {
+      worldMapLevel2: [0, 0]
+    });
+    Crafty.sprite(CONF.worldMap.level3.width, 'img/worldMap-level3.png', {
+      worldMapLevel3: [0, 0]
+    });
+
+    Crafty.e('2D, Canvas, worldMap')
+          .attr({x: 0, y: 0});
+
+    Crafty.e('2D, Canvas, Mouse, SpriteAnimation, worldMapLevel1')
+          .attr({x: CONF.worldMap.level1.x,y: CONF.worldMap.level1.y})
+          .bind('MouseOver', function() {
+            this.animate('level1-selected', 0, 1);
+          })
+          .bind('MouseOut', function() {
+            this.animate('level1-unselected', 0, 1);
+          })
+          .bind('Click', function() {
+            console.log('level1 click');
+          })
+          .animate('level1-selected', 1, 0, 1)
+          .animate('level1-unselected', 0, 0, 1);
+
+    Crafty.e('2D, Canvas, Mouse, SpriteAnimation, worldMapLevel2')
+          .attr({x: CONF.worldMap.level2.x,y: CONF.worldMap.level2.y})
+          .bind('MouseOver', function() {
+            this.animate('level2-selected', 0, 1);
+          })
+          .bind('MouseOut', function() {
+            this.animate('level2-unselected', 0, 1);
+          })
+          .bind('Click', function() {
+            console.log('level2 click');
+          })
+          .animate('level2-selected', 1, 0, 1)
+          .animate('level2-unselected', 0, 0, 1);
+
+    Crafty.e('2D, Canvas, Mouse, SpriteAnimation, worldMapLevel3')
+          .attr({x: CONF.worldMap.level3.x,y: CONF.worldMap.level3.y})
+          .bind('MouseOver', function() {
+            this.animate('level3-selected', 0, 1);
+          })
+          .bind('MouseOut', function() {
+            this.animate('level3-unselected', 0, 1);
+          })
+          .bind('Click', function() {
+            console.log('level3 click');
+          })
+          .animate('level3-selected', 1, 0, 1)
+          .animate('level3-unselected', 0, 0, 1);
   });
 
   // -----------------------------------------------------------------

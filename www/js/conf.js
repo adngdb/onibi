@@ -20,6 +20,27 @@ define(
       width: 1900,
       height: 1900
     },
+    worldMap: {
+      width: 640,
+      level1: {
+        x: 50,
+        y: 50,
+        width: 220,
+        height: 220
+      },
+      level2: {
+        x: 320,
+        y: 50,
+        width: 220,
+        height: 220
+      },
+      level3: {
+        x: 180,
+        y: 320,
+        width: 220,
+        height: 220
+      }
+    },
     enemy: {
       vision: 200,
       size: 128,
