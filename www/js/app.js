@@ -50,7 +50,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     Crafty.sprite( CONF.enemy.size, CONF.enemy.image, map );
 
     var enemy = Crafty.e( '2D, Canvas, SpriteAnimation, Tween, Enemy, enemy' + idEnemy )
-      .attr({ w:CONF.enemy.size, h:CONF.enemy.size, x: x, y: y });
+      .attr({ w:CONF.enemy.size, h:CONF.enemy.size, x: x, y: y, z: 1 });
 
     // Create animations
     for ( i in DIRECTIONS) {

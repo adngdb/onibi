@@ -18,17 +18,24 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
       ));
 
       this.requires('Mouse')
-          .areaMap([0, 0], [0, CONF.enemy.size], [CONF.enemy.size, CONF.enemy.size], [CONF.enemy.size, 0])
+          .areaMap(
+            [collisionerSizeX - realSizeX, collisionerSizeY - realSizeY],
+            [collisionerSizeX + realSizeX, collisionerSizeY - realSizeY],
+            [collisionerSizeX + realSizeX, collisionerSizeY + realSizeY],
+            [collisionerSizeX - realSizeX, collisionerSizeY + realSizeY]
+          )
           .bind('MouseDown', function(e) {
-            console.log('Fired');
-            this.fired = 1;
-            this.trigger('EnemyFired', e);
+            if ( e.mouseButton == Crafty.mouseButtons.RIGHT ) {
+              this.fired = 1;
+              this.trigger('EnemyFired', e);
+            }
           })
           .bind('MouseUp', function(e) {
-            console.log('Not fired');
-            this.fired = 0;
-            this.trigger('EnemyStopFired', e);
-          })
+            if ( e.mouseButton == Crafty.mouseButtons.RIGHT ) {
+              this.fired = 0;
+              this.trigger('EnemyStopFired', e);
+            }
+          });
 
       // On collision with an onibi
       this.onHit('Onibi', function (target) {
@@ -72,7 +79,7 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
 
     seekPlayer: function (playerX, playerY) {
 
-      if (this.corruption > 0) { 
+      if (this.isCorrupted( )) { 
 
         playerX += CONF.onibi.size / 2;
         playerY += CONF.onibi.size / 2;
@@ -95,13 +102,15 @@ require(['lib/crafty','conf'], function(crafty, CONF) {
     isFired: function() {
       return this.fired;
     },
+    isCorrupted: function( ) {
+      return (this.corruption>0);
+    },
     looseCorruption: function(essence){
-      if (this.corruption>0) {
+      if (this.isCorrupted( )) {
         this.corruption -= essence;
         console.log("Enemy corruption : "+this.corruption);
       }
     }
-
   });
 
 });

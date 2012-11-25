@@ -19,7 +19,8 @@ require(['lib/crafty','conf', 'c/spellPurify', 'c/spellTeleportation'],
                           .spellPurify(player, target)
                           .attr({x:player.x, y:player.y, w:CONF.spell.purify.size, h:CONF.spell.purify.size});
             // Standing animation
-            spell.animate('purify-anim', [[0, 0],[0, 1],[0, 2],[0, 3]]);
+            spell.animate('purify-anim', [[4, 0],[3, 0],[2, 0],[1, 0],[2, 0],[3, 0],[4, 0]]);
+            spell.animate('purify-none', [[0, 0]]);
           break;
 
         case CONF.spell.teleportation.type: //spell purify
