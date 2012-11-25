@@ -226,7 +226,6 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
       for ( var i=0; i<enemies.length; i++ ) {
         enemies[ i ]
           .bind('EnemyFired', function(e) {
-            //console.log("create spell");
             spell = spellCreator.createSpell(player, this).fire();
           })
           .bind('EnemyStopFired', function(e) {
