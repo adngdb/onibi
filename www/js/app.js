@@ -125,9 +125,15 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
 
     //black background with some loading text
     Crafty.background('#000');
-    Crafty.e('2D, DOM, Text').attr({ w: 100, h: 20, x: CONF.width/2-50, y: CONF.height/2-10 })
-      .text('Loading')
-      .css({ 'text-align': 'center', 'color': '#fff' });
+    Crafty.e('2D, DOM, Text')
+          .attr({
+            w: 100,
+            h: 20,
+            x: Crafty.DOM.window.width / 2 - 50,
+            y: Crafty.DOM.window.height / 2 - 10
+          })
+          .text('Loading')
+          .css({ 'text-align': 'center', 'color': '#fff' });
   });
 
   // New level, loads the images and parses the level data
@@ -140,9 +146,15 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
 
     //black background with some loading text
     Crafty.background('#000');
-    Crafty.e('2D, DOM, Text').attr({ w: 100, h: 20, x: CONF.width/2-50, y: CONF.height/2-10 })
-      .text('Loading')
-      .css({ 'text-align': 'center', 'color': '#fff' });
+    Crafty.e('2D, DOM, Text')
+          .attr({
+            w: 100,
+            h: 20,
+            x: Crafty.DOM.window.width / 2 - 50,
+            y: Crafty.DOM.window.height / 2 - 10
+          })
+          .text('Loading')
+          .css({ 'text-align': 'center', 'color': '#fff' });
   });
 
   // -----------------------------------------------------------------
@@ -302,7 +314,7 @@ require(['jquery', 'lib/crafty', 'conf' ,'c/player', 'c/borders', 'c/enemy', 'c/
     });
     Crafty.sprite(CONF.gardian.size, 'img/gardien-dryade.png', {
       gardian: [1, 0]
-    });    
+    });
 
     //Add audio for level
     var audioLevel1 = new buzz.sound( 'sfx/Musics/Onibi-map2', {
