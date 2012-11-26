@@ -1,7 +1,5 @@
 define(
   {
-    width: 960,
-    height: 640,
     onibi: {
       size: 32,
       speed: 5,
@@ -15,10 +13,6 @@ define(
       speed: 10,
       zoneWidth: 50,
       zoneHeight: 50
-    },
-    level1: {
-      width: 1900,
-      height: 1900
     },
     enemy: {
       vision: 200,
